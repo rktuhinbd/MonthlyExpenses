@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--    Dimensions for texts-->
+    <dimen name="text_heading_small">18sp</dimen>
+    <dimen name="text_heading_medium">20sp</dimen>
+    <dimen name="text_heading_large">22sp</dimen>
+    <dimen name="text_small">12sp</dimen>
+    <dimen name="text_medium">14sp</dimen>
+    <dimen name="text_large">16sp</dimen>
+
+    <!--    Dimensions for padding-->
+    <dimen name="padding_narrow">12dp</dimen>
+    <dimen name="padding_normal">16dp</dimen>
+    <dimen name="padding_wide">20dp</dimen>
+
+    <!--    Dimensions for margins-->
+    <dimen name="margin_narrow">12dp</dimen>
+    <dimen name="margin_normal">16dp</dimen>
+    <dimen name="margin_wide">20dp</dimen>
+    <dimen name="margin_element_wide">16dp</dimen>
+    <dimen name="margin_element">12dp</dimen>
+    <dimen name="margin_headline">8dp</dimen>
+    <dimen name="margin_text">4dp</dimen>
+
+    <!--    Dimensions for Button, EditText-->+
+    <dimen name="button_height_thick">38dp</dimen>
+    <dimen name="button_height_regular">40dp</dimen>
+    <dimen name="button_height_wide">42dp</dimen>
+
+    <dimen name="edittext_height_thick">38dp</dimen>
+    <dimen name="edittext_height_regular">40dp</dimen>
+    <dimen name="edittext_height_wide">42dp</dimen>
+
+    <!--    Dimensions for radius-->
+    <dimen name="radius_small">4dp</dimen>
+    <dimen name="radius_medium">8dp</dimen>
+    <dimen name="radius_large">16dp</dimen>
+</resources>
