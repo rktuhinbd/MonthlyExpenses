@@ -1,12 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!--    Dimensions for texts-->
-    <dimen name="text_heading_small">18sp</dimen>
-    <dimen name="text_heading_medium">20sp</dimen>
-    <dimen name="text_heading_large">22sp</dimen>
+    <dimen name="text_heading_small">20sp</dimen>
+    <dimen name="text_heading_medium">22sp</dimen>
+    <dimen name="text_heading_large">24sp</dimen>
+
+    <dimen name="text_extra_small">10sp</dimen>
     <dimen name="text_small">12sp</dimen>
     <dimen name="text_medium">14sp</dimen>
     <dimen name="text_large">16sp</dimen>
+    <dimen name="text_extra_large">18sp</dimen>
+
 
     <!--    Dimensions for padding-->
     <dimen name="padding_narrow">12dp</dimen>
@@ -22,7 +26,7 @@
     <dimen name="margin_headline">8dp</dimen>
     <dimen name="margin_text">4dp</dimen>
 
-    <!--    Dimensions for Button, EditText-->+
+    <!--    Dimensions for Button, EditText-->
     <dimen name="button_height_thick">38dp</dimen>
     <dimen name="button_height_regular">40dp</dimen>
     <dimen name="button_height_wide">42dp</dimen>
