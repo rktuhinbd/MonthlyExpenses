@@ -11,7 +11,16 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".MainActivity">
+        <activity android:name=".Activity.BalanceSheetActivity"></activity>
+        <activity android:name=".Activity.MealRateActivity" />
+        <activity android:name=".Activity.ExpenseActivity" />
+        <activity android:name=".Activity.MealActivity" />
+        <activity android:name=".Activity.RentActivity" />
+        <activity
+            android:name=".Activity.MembersActivity"
+            android:label="@string/title_activity_members"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".Activity.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
