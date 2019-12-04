@@ -8,6 +8,8 @@
     <string name="taka_sign">৳</string>
     <string name="meals">Meals</string>
     <string name="expenses">Expenses</string>
+    <string name="meal_rate">Meal Rate</string>
+    <string name="balance_sheet">Balance Sheet</string>
 
     <string-array name="months">
         <item>January</item>
