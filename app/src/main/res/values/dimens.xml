@@ -16,6 +16,7 @@
     <dimen name="padding_narrow">12dp</dimen>
     <dimen name="padding_normal">16dp</dimen>
     <dimen name="padding_wide">20dp</dimen>
+    <dimen name="padding_extra_wide">24dp</dimen>
 
     <!--    Dimensions for margins-->
     <dimen name="margin_narrow">12dp</dimen>

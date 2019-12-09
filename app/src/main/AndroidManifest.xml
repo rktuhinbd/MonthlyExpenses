@@ -11,7 +11,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".Activity.BalanceSheetActivity"></activity>
+        <activity android:name=".Dialog.AddMemberDialog"></activity>
+        <activity android:name=".Activity.BalanceSheetActivity" />
         <activity android:name=".Activity.MealRateActivity" />
         <activity android:name=".Activity.ExpenseActivity" />
         <activity android:name=".Activity.MealActivity" />
