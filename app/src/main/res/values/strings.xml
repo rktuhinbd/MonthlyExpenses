@@ -26,4 +26,12 @@
         <item>December</item>
     </string-array>
     <string name="title_activity_members">MembersActivity</string>
+    <string name="member_photo">Member Photo</string>
+    <string name="name">Name</string>
+    <string name="phone">Phone</string>
+    <string name="email">Email</string>
+    <string name="home_address">Home Address</string>
+    <string name="add_member">Add Member</string>
+    <string name="close">Close</string>
+    <string name="national_id">National ID</string>
 </resources>

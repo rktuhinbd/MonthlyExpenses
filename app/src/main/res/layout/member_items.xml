@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="88dp"
+    android:padding="@dimen/padding_narrow">
+
+    <ImageView
+        android:id="@+id/imageView_memberPhoto"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:layout_marginEnd="@dimen/margin_narrow"
+        android:contentDescription="@string/member_photo"
+        android:src="@drawable/ic_person" />
+
+    <TextView
+        android:id="@+id/textView_memberName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toEndOf="@+id/imageView_memberPhoto"
+        android:fontFamily="@font/arima_madurai_bold"
+        android:maxLines="1"
+        android:text="@string/name"
+        android:textColor="@color/colorBlack"
+        android:textSize="@dimen/text_extra_large" />
+
+    <TextView
+        android:id="@+id/textView_memberPhone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView_memberName"
+        android:layout_alignParentBottom="true"
+        android:layout_toEndOf="@+id/imageView_memberPhoto"
+        android:fontFamily="@font/arima_madurai_medium"
+        android:maxLines="1"
+        android:text="@string/phone"
+        android:textColor="@color/colorBlack"
+        android:textSize="@dimen/text_large" />
+
+</RelativeLayout>
