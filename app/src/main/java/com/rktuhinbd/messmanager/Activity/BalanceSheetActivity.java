@@ -1,10 +1,10 @@
-package com.rktuhinbd.monthlyexpenses.Activity;
+package com.rktuhinbd.messmanager.Activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
-import com.rktuhinbd.monthlyexpenses.R;
+import com.rktuhinbd.messmanager.R;
 
 public class BalanceSheetActivity extends AppCompatActivity {
 

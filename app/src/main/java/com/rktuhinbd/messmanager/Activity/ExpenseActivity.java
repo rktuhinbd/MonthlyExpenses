@@ -1,16 +1,16 @@
-package com.rktuhinbd.monthlyexpenses.Activity;
+package com.rktuhinbd.messmanager.Activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
-import com.rktuhinbd.monthlyexpenses.R;
+import com.rktuhinbd.messmanager.R;
 
-public class RentActivity extends AppCompatActivity {
+public class ExpenseActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_rent);
+        setContentView(R.layout.activity_expense);
     }
 }

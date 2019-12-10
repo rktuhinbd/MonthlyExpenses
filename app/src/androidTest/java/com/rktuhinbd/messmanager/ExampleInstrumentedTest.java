@@ -1,4 +1,4 @@
-package com.rktuhinbd.monthlyexpenses;
+package com.rktuhinbd.messmanager;
 
 import android.content.Context;
 

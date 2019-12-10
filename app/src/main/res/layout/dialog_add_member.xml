@@ -8,8 +8,8 @@
     <RelativeLayout
         android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:background="@drawable/background_dialog"
         android:layout_centerInParent="true"
+        android:background="@drawable/background_dialog"
         tools:ignore="UselessParent">
 
         <ImageButton
@@ -18,18 +18,38 @@
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true"
-            android:background="@null"
             android:layout_marginTop="@dimen/margin_text"
             android:layout_marginEnd="@dimen/margin_text"
+            android:background="@null"
             android:contentDescription="@string/close"
             android:src="@drawable/ic_close_red" />
+
+        <TextView
+            android:id="@+id/textView_headline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/padding_extra_wide"
+            android:layout_marginTop="@dimen/padding_extra_wide"
+            android:fontFamily="@font/arima_madurai_extrabold"
+            android:text="@string/add_member"
+            android:textColor="@color/colorBlack"
+            android:textSize="@dimen/text_extra_large"
+            tools:ignore="RelativeOverlap" />
+
+        <View
+            android:id="@+id/view_divider"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_below="@id/textView_headline"
+            android:layout_marginTop="@dimen/margin_headline"
+            android:background="@color/colorBlack" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/imageButton_close"
+            android:layout_below="@+id/view_divider"
+            android:background="@color/colorWhite"
             android:orientation="vertical"
-            android:background="@color/colorLight"
             android:padding="@dimen/padding_extra_wide">
 
             <EditText
@@ -44,7 +64,8 @@
                 android:inputType="text"
                 android:maxLength="100"
                 android:paddingStart="@dimen/padding_narrow"
-                android:paddingEnd="@dimen/padding_narrow" />
+                android:paddingEnd="@dimen/padding_narrow"
+                android:textSize="@dimen/text_small" />
 
             <EditText
                 android:id="@+id/editText_phone"
@@ -59,7 +80,8 @@
                 android:inputType="phone"
                 android:maxLength="11"
                 android:paddingStart="@dimen/padding_narrow"
-                android:paddingEnd="@dimen/padding_narrow" />
+                android:paddingEnd="@dimen/padding_narrow"
+                android:textSize="@dimen/text_small" />
 
             <EditText
                 android:id="@+id/editText_email"
@@ -74,7 +96,8 @@
                 android:inputType="textEmailAddress"
                 android:maxLength="100"
                 android:paddingStart="@dimen/padding_narrow"
-                android:paddingEnd="@dimen/padding_narrow" />
+                android:paddingEnd="@dimen/padding_narrow"
+                android:textSize="@dimen/text_small" />
 
             <EditText
                 android:id="@+id/editText_address"
@@ -90,7 +113,8 @@
                 android:maxLength="250"
                 android:maxLines="2"
                 android:paddingStart="@dimen/padding_narrow"
-                android:paddingEnd="@dimen/padding_narrow" />
+                android:paddingEnd="@dimen/padding_narrow"
+                android:textSize="@dimen/text_small" />
 
             <EditText
                 android:id="@+id/editText_nationalId"
@@ -106,7 +130,33 @@
                 android:maxLength="17"
                 android:maxLines="2"
                 android:paddingStart="@dimen/padding_narrow"
-                android:paddingEnd="@dimen/padding_narrow" />
+                android:paddingEnd="@dimen/padding_narrow"
+                android:textSize="@dimen/text_small" />
+
+            <EditText
+                android:id="@+id/editText_organisation"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/edittext_height_regular"
+                android:layout_marginTop="@dimen/margin_normal"
+                android:background="@drawable/background_edittext_stroked"
+                android:drawableEnd="@drawable/ic_organisation"
+                android:fontFamily="@font/arima_madurai_medium"
+                android:hint="@string/organisation"
+                android:importantForAutofill="no"
+                android:inputType="text"
+                android:maxLength="100"
+                android:paddingStart="@dimen/padding_narrow"
+                android:paddingEnd="@dimen/padding_narrow"
+                android:textSize="@dimen/text_small" />
+
+            <Spinner
+                android:id="@+id/spinner_occupation"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="@dimen/margin_normal"
+                android:drawSelectorOnTop="true"
+                android:entries="@array/occupations"
+                android:spinnerMode="dropdown" />
 
             <Button
                 android:id="@+id/button_addMember"
