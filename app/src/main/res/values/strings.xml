@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Monthly Expenses</string>
+    <string name="app_name">Mess Manager</string>
     <string name="monthly_expenses">Monthly Expenses</string>
     <string name="members">Members</string>
     <string name="_0">0</string>
@@ -25,6 +25,14 @@
         <item>November</item>
         <item>December</item>
     </string-array>
+
+    <string-array name="occupations">
+        <item>Student</item>
+        <item>Job Holder</item>
+        <item>Business</item>
+        <item>Unemployed</item>
+    </string-array>
+
     <string name="title_activity_members">MembersActivity</string>
     <string name="member_photo">Member Photo</string>
     <string name="name">Name</string>
@@ -34,4 +42,6 @@
     <string name="add_member">Add Member</string>
     <string name="close">Close</string>
     <string name="national_id">National ID</string>
+    <string name="organisation">Organisation</string>
+    <string name="occupation">Occupation</string>
 </resources>

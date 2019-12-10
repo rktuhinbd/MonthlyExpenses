@@ -1,4 +1,4 @@
-package com.rktuhinbd.monthlyexpenses.Activity;
+package com.rktuhinbd.messmanager.Activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
@@ -10,12 +10,12 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 
-import com.rktuhinbd.monthlyexpenses.R;
+import com.rktuhinbd.messmanager.R;
 
 public class MainActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
     private Spinner spinner;
-    private ArrayAdapter<CharSequence> adapter;
+    private ArrayAdapter<CharSequence> spinnerAdapter;
 
     private CardView cardViewMembers, cardViewRent, cardViewMeal, cardViewExpense, cardViewMealRate, cardViewBalanceSheet;
 
@@ -122,11 +122,11 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     private void setSpinner(){
         spinner = findViewById(R.id.spinner_months);
         // Create an ArrayAdapter using the string array and a default spinner layout
-        adapter = ArrayAdapter.createFromResource(this, R.array.months, R.layout.custom_spinner_item);
+        spinnerAdapter = ArrayAdapter.createFromResource(this, R.array.months, R.layout.spinner_background_white);
         // Specify the layout to use when the list of choices appears
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        // Apply the adapter to the spinner
-        spinner.setAdapter(adapter);
+        spinnerAdapter.setDropDownViewResource(R.layout.spinner_background_martinique);
+        // Apply the spinnerAdapter to the spinner
+        spinner.setAdapter(spinnerAdapter);
         spinner.setOnItemSelectedListener(this);
     }
 
