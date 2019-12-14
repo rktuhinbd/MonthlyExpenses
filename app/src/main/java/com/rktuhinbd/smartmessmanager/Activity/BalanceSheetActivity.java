@@ -1,10 +1,10 @@
-package com.rktuhinbd.messmanager.Activity;
+package com.rktuhinbd.smartmessmanager.Activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
-import com.rktuhinbd.messmanager.R;
+import com.rktuhinbd.smartmessmanager.R;
 
 public class BalanceSheetActivity extends AppCompatActivity {
 

@@ -13,19 +13,25 @@
 
 
     <!--    Dimensions for padding-->
+    <dimen name="padding_tiny">4dp</dimen>
     <dimen name="padding_narrow">12dp</dimen>
     <dimen name="padding_normal">16dp</dimen>
     <dimen name="padding_wide">20dp</dimen>
     <dimen name="padding_extra_wide">24dp</dimen>
 
     <!--    Dimensions for margins-->
+    <dimen name="margin_very_tiny">6dp</dimen>
+    <dimen name="margin_tiny">8dp</dimen>
+    <dimen name="margin_very_narrow">10dp</dimen>
     <dimen name="margin_narrow">12dp</dimen>
     <dimen name="margin_normal">16dp</dimen>
     <dimen name="margin_wide">20dp</dimen>
+    <dimen name="margin_extra_wide">24dp</dimen>
     <dimen name="margin_element_wide">16dp</dimen>
     <dimen name="margin_element">12dp</dimen>
     <dimen name="margin_headline">8dp</dimen>
     <dimen name="margin_text">4dp</dimen>
+    <dimen name="fab_margin">16dp</dimen>
 
     <!--    Dimensions for Button, EditText-->
     <dimen name="button_height_thick">38dp</dimen>
@@ -37,8 +43,13 @@
     <dimen name="edittext_height_wide">42dp</dimen>
 
     <!--    Dimensions for radius-->
+    <dimen name="radius_tiny">2dp</dimen>
     <dimen name="radius_small">4dp</dimen>
     <dimen name="radius_medium">8dp</dimen>
     <dimen name="radius_large">16dp</dimen>
-    <dimen name="fab_margin">16dp</dimen>
+
+    <!--    Dimensions for Card Elevation-->
+    <dimen name="elevation_small">2dp</dimen>
+    <dimen name="elevation_medium">4dp</dimen>
+    <dimen name="elevation_large">6dp</dimen>
 </resources>

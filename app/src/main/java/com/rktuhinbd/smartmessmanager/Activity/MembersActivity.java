@@ -1,5 +1,6 @@
-package com.rktuhinbd.messmanager.Activity;
+package com.rktuhinbd.smartmessmanager.Activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -11,12 +12,14 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
-import com.rktuhinbd.messmanager.Adapter.MemberListAdapter;
-import com.rktuhinbd.messmanager.Database.DatabaseHelper;
-import com.rktuhinbd.messmanager.Dialog.AddMemberDialog;
-import com.rktuhinbd.messmanager.Listener.AddMemberDialogListener;
-import com.rktuhinbd.messmanager.Model.MemberList;
-import com.rktuhinbd.messmanager.R;
+import com.rktuhinbd.smartmessmanager.Adapter.MemberListAdapter;
+import com.rktuhinbd.smartmessmanager.Database.DatabaseHelper;
+import com.rktuhinbd.smartmessmanager.Dialog.AddMemberDialog;
+import com.rktuhinbd.smartmessmanager.Listener.AddMemberDialogListener;
+import com.rktuhinbd.smartmessmanager.Model.MemberList;
+import com.rktuhinbd.smartmessmanager.R;
+import com.rktuhinbd.smartmessmanager.Utility.Constants;
+import com.rktuhinbd.smartmessmanager.Utility.SharedPrefs;
 
 import java.util.ArrayList;
 
@@ -25,6 +28,7 @@ public class MembersActivity extends AppCompatActivity implements AddMemberDialo
     private View view;
 
     private DatabaseHelper databaseHelper;
+    private SharedPrefs sharedPrefs;
 
     private ArrayList<MemberList> memberLists;
     private MemberListAdapter memberListAdapter;
@@ -41,8 +45,23 @@ public class MembersActivity extends AppCompatActivity implements AddMemberDialo
         setSupportActionBar(toolbar);
         view = getWindow().getDecorView().findViewById(android.R.id.content);
 
-        initiateProperties(view);
+        initiateProperties();
+        setFab();
+        initiateRecyclerViewWithMembers();
+    }
 
+
+    private void initiateProperties() {
+        databaseHelper = new DatabaseHelper(this);
+        sharedPrefs = new SharedPrefs(this);
+
+        fab = findViewById(R.id.fab);
+        recyclerViewMembers = view.findViewById(R.id.recyclerView_members);
+        memberLists = new ArrayList<>();
+    }
+
+
+    private void setFab() {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -52,27 +71,34 @@ public class MembersActivity extends AppCompatActivity implements AddMemberDialo
     }
 
 
-    private void initiateProperties(View view) {
-        databaseHelper = new DatabaseHelper(view.getContext());
-
-        fab = findViewById(R.id.fab);
-
-        recyclerViewMembers = view.findViewById(R.id.recyclerView_members);
-        memberLists = new ArrayList<>();
-
-        initiateRecyclerView(view);
-    }
-
-
-    private void initiateRecyclerView(View view){
+    private void initiateRecyclerViewWithMembers() {
         memberLists = databaseHelper.getMemberList();
-        memberListAdapter = new MemberListAdapter(view.getContext(), memberLists);
+        sharedPrefs.setSharedPrefDataInt(SharedPrefs.MEMBERS, memberLists.size());
+        memberListAdapter = new MemberListAdapter(this, memberLists);
 
-        layoutManager = new LinearLayoutManager(view.getContext());
+        layoutManager = new LinearLayoutManager(this);
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerViewMembers.setLayoutManager(layoutManager);
         recyclerViewMembers.setHasFixedSize(true);
         recyclerViewMembers.setAdapter(memberListAdapter);
+
+        memberListAdapter.setOnItemClickListener(new MemberListAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(int position) {
+                Intent intent = new Intent(getBaseContext(), MemberInformationActivity.class);
+                intent.putExtra(Constants.POSITION, position);
+                intent.putExtra(Constants.NAME, memberLists.get(position).getName());
+                intent.putExtra(Constants.PHONE, memberLists.get(position).getPhone());
+                intent.putExtra(Constants.EMAIL, memberLists.get(position).getEmail());
+                intent.putExtra(Constants.HOME_ADDRESS, memberLists.get(position).getHomeAddress());
+                intent.putExtra(Constants.NATIONAL_ID, memberLists.get(position).getNationalId());
+                intent.putExtra(Constants.OCCUPATION, memberLists.get(position).getOccupation());
+                intent.putExtra(Constants.ORGANISATION, memberLists.get(position).getOrganisation());
+                intent.putExtra(Constants.PROFILE_PHOTO_URL, memberLists.get(position).getProfilePhotoUrl());
+                Log.e("Organisation", memberLists.get(position).getOrganisation());
+                startActivity(intent);
+            }
+        });
     }
 
 
@@ -96,7 +122,7 @@ public class MembersActivity extends AppCompatActivity implements AddMemberDialo
             Log.e("Organisation", organisation);
             databaseHelper.addMember(name, phone, email, homeAddress, nationalId, occupation, organisation, "");
             Snackbar.make(view, "Member added.", Snackbar.LENGTH_LONG).setAction("Action", null).show();
-            initiateRecyclerView(view);
+            initiateRecyclerViewWithMembers();
         }
     }
 }

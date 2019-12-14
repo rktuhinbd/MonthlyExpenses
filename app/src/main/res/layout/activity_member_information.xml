@@ -1,0 +1,278 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorAccent"
+    android:padding="@dimen/padding_normal"
+    tools:context="com.rktuhinbd.smartmessmanager.Activity.MemberInformationActivity">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView_profilePhoto"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/margin_wide"
+        android:elevation="0dp"
+        app:cardCornerRadius="75dp">
+
+        <ImageView
+            android:id="@+id/imageView_profilePhoto"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:contentDescription="@string/member_photo"
+            android:src="@drawable/ic_person" />
+
+    </androidx.cardview.widget.CardView>
+
+    <RelativeLayout
+        android:id="@+id/layout_name"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:layout_marginTop="95dp"
+        android:background="@color/colorMartinique">
+
+        <TextView
+            android:id="@+id/textView_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="90dp"
+            android:fontFamily="@font/arima_madurai_bold"
+            android:text="@string/name"
+            android:textColor="@color/colorWhite"
+            android:textSize="@dimen/text_heading_large" />
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/layout_phone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/layout_name"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="@dimen/margin_wide"
+        android:layout_marginTop="@dimen/text_extra_large"
+        android:layout_marginEnd="@dimen/margin_wide"
+        android:orientation="horizontal"
+        tools:ignore="UseCompoundDrawables">
+
+        <ImageView
+            android:id="@+id/imageView_phone"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_gravity="center"
+            android:contentDescription="@string/phone"
+            android:src="@drawable/logo_phone" />
+
+        <TextView
+            android:id="@+id/textView_phoneNumber"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_normal"
+            android:fontFamily="@font/arima_madurai_bold"
+            android:text="@string/phone"
+            android:textColor="@color/colorWhite"
+            android:textSize="@dimen/text_heading_small" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/layout_email"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/layout_phone"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="@dimen/margin_wide"
+        android:layout_marginTop="@dimen/margin_element"
+        android:layout_marginEnd="@dimen/margin_wide"
+        android:orientation="horizontal"
+        tools:ignore="UseCompoundDrawables">
+
+        <ImageView
+            android:id="@+id/imageView_email"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_gravity="center"
+            android:contentDescription="@string/email"
+            android:src="@drawable/ic_mail" />
+
+        <TextView
+            android:id="@+id/textView_mailAddress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_normal"
+            android:fontFamily="@font/arima_madurai_bold"
+            android:text="@string/email"
+            android:textColor="@color/colorWhite"
+            android:textSize="@dimen/text_heading_small" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/layout_address"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/layout_email"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="@dimen/margin_wide"
+        android:layout_marginTop="@dimen/margin_element"
+        android:layout_marginEnd="@dimen/margin_wide"
+        android:orientation="horizontal"
+        tools:ignore="UseCompoundDrawables">
+
+        <ImageView
+            android:id="@+id/imageView_address"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_gravity="center"
+            android:contentDescription="@string/home_address"
+            android:src="@drawable/ic_home_address" />
+
+        <TextView
+            android:id="@+id/textView_homeAddress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_normal"
+            android:fontFamily="@font/arima_madurai_bold"
+            android:text="@string/home_address"
+            android:textColor="@color/colorWhite"
+            android:textSize="@dimen/text_heading_small" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/layout_nationalId"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/layout_address"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="@dimen/margin_wide"
+        android:layout_marginTop="@dimen/margin_element"
+        android:layout_marginEnd="@dimen/margin_wide"
+        android:orientation="horizontal"
+        tools:ignore="UseCompoundDrawables">
+
+        <ImageView
+            android:id="@+id/imageView_nationalId"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_gravity="center"
+            android:contentDescription="@string/national_id"
+            android:src="@drawable/ic_national_id" />
+
+        <TextView
+            android:id="@+id/textView_nationalId"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_normal"
+            android:fontFamily="@font/arima_madurai_bold"
+            android:text="@string/national_id"
+            android:textColor="@color/colorWhite"
+            android:textSize="@dimen/text_heading_small" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/layout_occupation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/layout_nationalId"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="@dimen/margin_wide"
+        android:layout_marginTop="@dimen/margin_element"
+        android:layout_marginEnd="@dimen/margin_wide"
+        android:orientation="horizontal"
+        tools:ignore="UseCompoundDrawables">
+
+        <ImageView
+            android:id="@+id/imageView_occupation"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_gravity="center"
+            android:contentDescription="@string/occupation"
+            android:src="@drawable/ic_profession" />
+
+        <TextView
+            android:id="@+id/textView_occupation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_normal"
+            android:fontFamily="@font/arima_madurai_bold"
+            android:text="@string/occupation"
+            android:textColor="@color/colorWhite"
+            android:textSize="@dimen/text_heading_small" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/layout_organisation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/layout_occupation"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="@dimen/margin_wide"
+        android:layout_marginTop="@dimen/margin_element"
+        android:layout_marginEnd="@dimen/margin_wide"
+        android:orientation="horizontal"
+        tools:ignore="UseCompoundDrawables">
+
+        <ImageView
+            android:id="@+id/imageView_organisation"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_gravity="center"
+            android:contentDescription="@string/organisation"
+            android:src="@drawable/ic_organisation" />
+
+        <TextView
+            android:id="@+id/textView_organisation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_normal"
+            android:fontFamily="@font/arima_madurai_bold"
+            android:text="@string/national_id"
+            android:textColor="@color/colorWhite"
+            android:textSize="@dimen/text_heading_small" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="@dimen/margin_wide"
+        android:layout_marginTop="@dimen/margin_wide"
+        android:layout_marginBottom="@dimen/margin_wide"
+        android:layout_marginEnd="@dimen/margin_wide"
+        android:weightSum="2"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/button_removeMember"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/button_height_regular"
+            android:layout_weight="1"
+            android:background="@drawable/background_button_red"
+            android:text="@string/remove_member"
+            android:layout_marginEnd="@dimen/margin_tiny"
+            android:textColor="@color/colorWhite"
+            android:fontFamily="@font/arima_madurai_medium"
+            tools:ignore="ButtonStyle" />
+
+        <Button
+            android:id="@+id/button_updateInformation"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/button_height_regular"
+            android:layout_weight="1"
+            android:background="@drawable/background_button_green"
+            android:text="@string/update_info"
+            android:layout_marginStart="@dimen/margin_tiny"
+            android:textColor="@color/colorWhite"
+            android:fontFamily="@font/arima_madurai_medium"
+            tools:ignore="ButtonStyle" />
+
+    </LinearLayout>
+
+</RelativeLayout>

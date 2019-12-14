@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.rktuhinbd.messmanager">
+    package="com.rktuhinbd.smartmessmanager">
 
     <application
         android:allowBackup="false"
@@ -11,17 +11,18 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name="com.rktuhinbd.messmanager.Dialog.AddMemberDialog" />
-        <activity android:name="com.rktuhinbd.messmanager.Activity.BalanceSheetActivity" />
-        <activity android:name="com.rktuhinbd.messmanager.Activity.MealRateActivity" />
-        <activity android:name="com.rktuhinbd.messmanager.Activity.ExpenseActivity" />
-        <activity android:name="com.rktuhinbd.messmanager.Activity.MealActivity" />
-        <activity android:name="com.rktuhinbd.messmanager.Activity.RentActivity" />
+        <activity android:name=".Activity.MemberInformationActivity"></activity>
+        <activity android:name=".Dialog.AddMemberDialog" />
+        <activity android:name=".Activity.BalanceSheetActivity" />
+        <activity android:name=".Activity.MealRateActivity" />
+        <activity android:name=".Activity.ExpenseActivity" />
+        <activity android:name=".Activity.MealActivity" />
+        <activity android:name=".Activity.RentActivity" />
         <activity
-            android:name="com.rktuhinbd.messmanager.Activity.MembersActivity"
+            android:name=".Activity.MembersActivity"
             android:label="@string/title_activity_members"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name="com.rktuhinbd.messmanager.Activity.MainActivity">
+        <activity android:name=".Activity.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
