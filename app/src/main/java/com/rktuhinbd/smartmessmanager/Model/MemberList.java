@@ -1,11 +1,11 @@
-package com.rktuhinbd.messmanager.Model;
+package com.rktuhinbd.smartmessmanager.Model;
 
 public class MemberList {
 
     private int memberId;
-    private String name, phone, email, homeAddress, nationalId, profilePhotoUrl, occupation, organization;
+    private String name, phone, email, homeAddress, nationalId, profilePhotoUrl, occupation, organisation;
 
-    public MemberList(int memberId, String name, String phone, String email, String homeAddress, String nationalId, String occupation, String organization, String profilePhotoUrl) {
+    public MemberList(int memberId, String name, String phone, String email, String homeAddress, String nationalId, String occupation, String organisation, String profilePhotoUrl) {
         this.memberId = memberId;
         this.name = name;
         this.phone = phone;
@@ -13,7 +13,7 @@ public class MemberList {
         this.homeAddress = homeAddress;
         this.nationalId = nationalId;
         this.occupation = occupation;
-        this.organization = organization;
+        this.organisation = organisation;
         this.profilePhotoUrl = profilePhotoUrl;
     }
 
@@ -45,8 +45,8 @@ public class MemberList {
         return occupation;
     }
 
-    public String getOrganization() {
-        return organization;
+    public String getOrganisation() {
+        return organisation;
     }
 
     public String getProfilePhotoUrl() {

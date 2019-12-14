@@ -1,14 +1,13 @@
-package com.rktuhinbd.messmanager.Database;
+package com.rktuhinbd.smartmessmanager.Database;
 
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.util.Log;
 import android.widget.Toast;
 
-import com.rktuhinbd.messmanager.Model.MemberList;
+import com.rktuhinbd.smartmessmanager.Model.MemberList;
 
 import java.util.ArrayList;
 

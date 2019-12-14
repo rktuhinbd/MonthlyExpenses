@@ -1,7 +1,4 @@
-package com.rktuhinbd.messmanager.Activity;
-
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.cardview.widget.CardView;
+package com.rktuhinbd.smartmessmanager.Activity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,23 +6,45 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
+import android.widget.TextView;
 
-import com.rktuhinbd.messmanager.R;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
+
+import com.rktuhinbd.smartmessmanager.R;
+import com.rktuhinbd.smartmessmanager.Utility.SharedPrefs;
 
 public class MainActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
+    private SharedPrefs sharedPrefs;
     private Spinner spinner;
     private ArrayAdapter<CharSequence> spinnerAdapter;
 
     private CardView cardViewMembers, cardViewRent, cardViewMeal, cardViewExpense, cardViewMealRate, cardViewBalanceSheet;
+    private TextView textViewNumberOfMembers;
+
+    private int numberOfMembers;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        sharedPrefs = new SharedPrefs(this);
         setSpinner();
+        setCardViewMembers();
+        setCardViewHouseRent();
+        setCardViewMeal();
+        setCardViewExpense();
+        setCardViewMealRate();
+        setCardViewBalanceSheet();
+    }
 
+
+    @Override
+    protected void onPostResume() {
+        super.onPostResume();
+        setSpinner();
         setCardViewMembers();
         setCardViewHouseRent();
         setCardViewMeal();
@@ -35,9 +54,15 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     }
 
     //Members CardView Action Setting
-    private void setCardViewMembers(){
-        cardViewMembers = findViewById(R.id.cardView_members);
+    private void setCardViewMembers() {
+        numberOfMembers = sharedPrefs.getSharedPrefDataInt(SharedPrefs.MEMBERS);
 
+        textViewNumberOfMembers = findViewById(R.id.textView_numberOfMembers);
+        if (numberOfMembers > -1) {
+            textViewNumberOfMembers.setText(String.valueOf(numberOfMembers));
+        }
+
+        cardViewMembers = findViewById(R.id.cardView_members);
         cardViewMembers.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -49,7 +74,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     }
 
     //House Rent CardView Action Setting
-    private void setCardViewHouseRent(){
+    private void setCardViewHouseRent() {
         cardViewRent = findViewById(R.id.cardView_rent);
 
         cardViewRent.setOnClickListener(new View.OnClickListener() {
@@ -63,7 +88,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     }
 
     //Meals CardView Action Setting
-    private void setCardViewMeal(){
+    private void setCardViewMeal() {
         cardViewMeal = findViewById(R.id.cardView_meal);
 
         cardViewMeal.setOnClickListener(new View.OnClickListener() {
@@ -77,7 +102,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     }
 
     //Expense CardView Action Setting
-    private void setCardViewExpense(){
+    private void setCardViewExpense() {
         cardViewExpense = findViewById(R.id.cardView_expense);
 
         cardViewExpense.setOnClickListener(new View.OnClickListener() {
@@ -91,7 +116,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     }
 
     //Meal Rate CardView Action Setting
-    private void setCardViewMealRate(){
+    private void setCardViewMealRate() {
         cardViewMealRate = findViewById(R.id.cardView_mealRate);
 
         cardViewMealRate.setOnClickListener(new View.OnClickListener() {
@@ -105,7 +130,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     }
 
     //Members CardView Action Setting
-    private void setCardViewBalanceSheet(){
+    private void setCardViewBalanceSheet() {
         cardViewBalanceSheet = findViewById(R.id.cardView_balanceSheet);
 
         cardViewBalanceSheet.setOnClickListener(new View.OnClickListener() {
@@ -119,7 +144,9 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     }
 
     //Spinner Initialization and Action
-    private void setSpinner(){
+    private void setSpinner() {
+        int spinnerPosition = sharedPrefs.getSharedPrefDataInt(SharedPrefs.MONTH_SELECTED);
+
         spinner = findViewById(R.id.spinner_months);
         // Create an ArrayAdapter using the string array and a default spinner layout
         spinnerAdapter = ArrayAdapter.createFromResource(this, R.array.months, R.layout.spinner_background_white);
@@ -127,12 +154,15 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         spinnerAdapter.setDropDownViewResource(R.layout.spinner_background_martinique);
         // Apply the spinnerAdapter to the spinner
         spinner.setAdapter(spinnerAdapter);
+        if(spinnerPosition > -1){
+            spinner.setSelection(spinnerPosition);      //Set spinner position according the data from shared preference
+        }
         spinner.setOnItemSelectedListener(this);
     }
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-//        Toast.makeText(getApplicationContext(), position + "", Toast.LENGTH_SHORT).show();
+        sharedPrefs.setSharedPrefDataInt(SharedPrefs.MONTH_SELECTED, position);     //Store selected spinner position to shared preference
     }
 
     @Override

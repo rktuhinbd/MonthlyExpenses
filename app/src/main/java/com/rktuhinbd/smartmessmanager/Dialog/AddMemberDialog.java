@@ -1,5 +1,6 @@
-package com.rktuhinbd.messmanager.Dialog;
+package com.rktuhinbd.smartmessmanager.Dialog;
 
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -16,9 +17,9 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 
-import com.rktuhinbd.messmanager.Database.DatabaseHelper;
-import com.rktuhinbd.messmanager.Listener.AddMemberDialogListener;
-import com.rktuhinbd.messmanager.R;
+import com.rktuhinbd.smartmessmanager.Listener.AddMemberDialogListener;
+import com.rktuhinbd.smartmessmanager.R;
+import com.rktuhinbd.smartmessmanager.Utility.Validation;
 
 public class AddMemberDialog extends DialogFragment implements AdapterView.OnItemSelectedListener {
 
@@ -40,6 +41,7 @@ public class AddMemberDialog extends DialogFragment implements AdapterView.OnIte
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.dialog_add_member, container, false);
+        getDialog().getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
 
         setSpinner(view);               //Spinner initialization and action
         initiateProperties(view);       //Instantiate all properties
@@ -48,7 +50,7 @@ public class AddMemberDialog extends DialogFragment implements AdapterView.OnIte
         return view;
     }
 
-
+    //Initiate all properties
     private void initiateProperties(View view) {
         editTextName = view.findViewById(R.id.editText_name);
         editTextPhone = view.findViewById(R.id.editText_phone);
@@ -61,8 +63,8 @@ public class AddMemberDialog extends DialogFragment implements AdapterView.OnIte
         buttonAddMember = view.findViewById(R.id.button_addMember);
     }
 
-
-    private void setSpinner(View view){         //Spinner function to get Occupation
+    //Spinner function to get Occupation
+    private void setSpinner(View view) {
         spinnerOccupation = view.findViewById(R.id.spinner_occupation);
         // Create an ArrayAdapter using the string array and a default spinner layout
         spinnerAdapter = ArrayAdapter.createFromResource(view.getContext(), R.array.occupations, R.layout.spinner_background_martinique);
@@ -73,11 +75,11 @@ public class AddMemberDialog extends DialogFragment implements AdapterView.OnIte
         spinnerOccupation.setOnItemSelectedListener(this);
     }
 
-
+    //Set Add member button and close imageButton action
     private void setButtonAction() {
-        buttonAddMember.setOnClickListener(new View.OnClickListener() {     //Add member button action
+        buttonAddMember.setOnClickListener(new View.OnClickListener() {     //Add member button press
             @Override
-            public void onClick(View v) {
+            public void onClick(View v) {       //Add member button action
                 name = editTextName.getText().toString().trim();
                 phone = editTextPhone.getText().toString().trim();
                 email = editTextEmail.getText().toString().trim();
@@ -88,7 +90,7 @@ public class AddMemberDialog extends DialogFragment implements AdapterView.OnIte
             }
         });
 
-        imageButtonClose.setOnClickListener(new View.OnClickListener() {        //Dialog close button action
+        imageButtonClose.setOnClickListener(new View.OnClickListener() {        //Close dialog imageButton press
             @Override
             public void onClick(View v) {
                 setImageButtonClose();
@@ -96,21 +98,60 @@ public class AddMemberDialog extends DialogFragment implements AdapterView.OnIte
         });
     }
 
+    //Input validation
+    private boolean inputValidation(String name, String phone, String email, String homeAddress, String nationalId) {
+        int validationFlag = 0;
 
-    private void setButtonAddMember() {
-        dialogListener.stateChanged(true, name, phone, email, homeAddress, nationalId, occupation, organisation);
-        getDialog().cancel();
+        if (!Validation.nameValidation(name)) {     //Name validation
+            editTextName.setError(Validation.nameErrorMessage);
+        } else {
+            validationFlag++;
+        }
+
+        if (!Validation.phoneValidation(phone)) {       //Phone number validation
+            editTextPhone.setError(Validation.phoneErrorMessage);
+        } else {
+            validationFlag++;
+        }
+
+        if (!Validation.emailValidation(email)) {       //Email address validation
+            editTextEmail.setError(Validation.emailErrorMessage);
+        } else {
+            validationFlag++;
+        }
+
+        if (!Validation.addressValidation(homeAddress)) {       //Home address validation
+            editTextAddress.setError(Validation.addressErrorMessage);
+        } else {
+            validationFlag++;
+        }
+
+        if (!Validation.nationalIdValidation(nationalId)) {       //National ID validation
+            editTextNationalId.setError(Validation.nationalIdErrorMessage);
+        } else {
+            validationFlag++;
+        }
+
+        return validationFlag == 5;
     }
 
+    //Add member button's functionality method
+    private void setButtonAddMember() {
+        if (inputValidation(name, phone, email, homeAddress, nationalId)) {
+            dialogListener.stateChanged(true, name, phone, email, homeAddress, nationalId, occupation, organisation);
+            getDialog().cancel();
+        }
+    }
 
+    //Close dialog imageButton's functionality method
     private void setImageButtonClose() {
         getDialog().cancel();
     }
 
-
+    //Spinner item selection method
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        switch (position){
+        switch (position) {
             case 0:
                 occupation = "Student";
                 break;
@@ -127,7 +168,7 @@ public class AddMemberDialog extends DialogFragment implements AdapterView.OnIte
         Log.e("Occupation", occupation);
     }
 
-
+    //Nothing selected in Spinner method
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
 

@@ -1,4 +1,4 @@
-package com.rktuhinbd.messmanager;
+package com.rktuhinbd.smartmessmanager;
 
 import org.junit.Test;
 
