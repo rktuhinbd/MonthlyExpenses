@@ -10,19 +10,19 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.rktuhinbd.smartmessmanager.Model.MemberList;
+import com.rktuhinbd.smartmessmanager.Model.Members;
 import com.rktuhinbd.smartmessmanager.R;
 
 import java.util.ArrayList;
 
-public class MemberListAdapter extends RecyclerView.Adapter<MemberListAdapter.ViewHolder> {
+public class MemberRecyclerAdapter extends RecyclerView.Adapter<MemberRecyclerAdapter.ViewHolder> {
 
     private Context context;
-    private ArrayList<MemberList> memberLists;
+    private ArrayList<Members> members;
 
-    public MemberListAdapter(Context context, ArrayList<MemberList> memberLists) {
+    public MemberRecyclerAdapter(Context context, ArrayList<Members> members) {
         this.context = context;
-        this.memberLists = memberLists;
+        this.members = members;
     }
 
     public interface OnItemClickListener {
@@ -37,17 +37,17 @@ public class MemberListAdapter extends RecyclerView.Adapter<MemberListAdapter.Vi
 
     @NonNull
     @Override
-    public MemberListAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.member_items, parent, false);
+    public MemberRecyclerAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.items_member, parent, false);
         return new ViewHolder(view, mListener);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull MemberListAdapter.ViewHolder holder, int position) {
-        holder.textViewName.setText(memberLists.get(position).getName());
-        holder.textViewPhone.setText(memberLists.get(position).getPhone());
+    public void onBindViewHolder(@NonNull MemberRecyclerAdapter.ViewHolder holder, int position) {
+        holder.textViewName.setText(members.get(position).getName());
+        holder.textViewPhone.setText(members.get(position).getPhone());
 
-        if (!memberLists.get(position).getProfilePhotoUrl().isEmpty()) {
+        if (!members.get(position).getProfilePhotoUrl().isEmpty()) {
             //Load image url in the imageView using Picasso image loader library
         } else {
             //Load nothing
@@ -81,6 +81,6 @@ public class MemberListAdapter extends RecyclerView.Adapter<MemberListAdapter.Vi
 
     @Override
     public int getItemCount() {
-        return memberLists.size();
+        return members.size();
     }
 }

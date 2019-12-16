@@ -12,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 
 import com.rktuhinbd.smartmessmanager.R;
+import com.rktuhinbd.smartmessmanager.Utility.Keys;
 import com.rktuhinbd.smartmessmanager.Utility.SharedPrefs;
 
 public class MainActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
@@ -21,9 +22,9 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     private ArrayAdapter<CharSequence> spinnerAdapter;
 
     private CardView cardViewMembers, cardViewRent, cardViewMeal, cardViewExpense, cardViewMealRate, cardViewBalanceSheet;
-    private TextView textViewNumberOfMembers;
+    private TextView textViewNumberOfMembers, textViewTotalRent;
 
-    private int numberOfMembers;
+    private int numberOfMembers = 0, totalRent = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,11 +56,17 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
     //Members CardView Action Setting
     private void setCardViewMembers() {
-        numberOfMembers = sharedPrefs.getSharedPrefDataInt(SharedPrefs.MEMBERS);
+        numberOfMembers = sharedPrefs.getSharedPrefDataInt(Keys.MEMBERS);
+        totalRent = sharedPrefs.getSharedPrefDataInt(Keys.TOTAL_RENT);
 
         textViewNumberOfMembers = findViewById(R.id.textView_numberOfMembers);
-        if (numberOfMembers > -1) {
+        if (numberOfMembers > 0) {
             textViewNumberOfMembers.setText(String.valueOf(numberOfMembers));
+        }
+
+        textViewTotalRent = findViewById(R.id.textView_baseHouseRent);
+        if (totalRent > 0) {
+            textViewTotalRent.setText(String.valueOf(totalRent));
         }
 
         cardViewMembers = findViewById(R.id.cardView_members);
@@ -145,7 +152,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
     //Spinner Initialization and Action
     private void setSpinner() {
-        int spinnerPosition = sharedPrefs.getSharedPrefDataInt(SharedPrefs.MONTH_SELECTED);
+        int spinnerPosition = sharedPrefs.getSharedPrefDataInt(Keys.MONTH_SELECTED);
 
         spinner = findViewById(R.id.spinner_months);
         // Create an ArrayAdapter using the string array and a default spinner layout
@@ -154,7 +161,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         spinnerAdapter.setDropDownViewResource(R.layout.spinner_background_martinique);
         // Apply the spinnerAdapter to the spinner
         spinner.setAdapter(spinnerAdapter);
-        if(spinnerPosition > -1){
+        if (spinnerPosition > -1) {
             spinner.setSelection(spinnerPosition);      //Set spinner position according the data from shared preference
         }
         spinner.setOnItemSelectedListener(this);
@@ -162,7 +169,47 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        sharedPrefs.setSharedPrefDataInt(SharedPrefs.MONTH_SELECTED, position);     //Store selected spinner position to shared preference
+        sharedPrefs.setSharedPrefDataInt(Keys.MONTH_SELECTED, position);     //Store selected spinner position to shared preference
+        String month = "";
+        switch (position) {
+            case 0:
+                month = "January";
+                break;
+            case 1:
+                month = "February";
+                break;
+            case 2:
+                month = "March";
+                break;
+            case 3:
+                month = "April";
+                break;
+            case 4:
+                month = "May";
+                break;
+            case 5:
+                month = "June";
+                break;
+            case 6:
+                month = "July";
+                break;
+            case 7:
+                month = "August";
+                break;
+            case 8:
+                month = "September";
+                break;
+            case 9:
+                month = "October";
+                break;
+            case 10:
+                month = "November";
+                break;
+            case 11:
+                month = "December";
+                break;
+        }
+        sharedPrefs.setSharedPrefDataString(Keys.MONTH, month);     //Store month according to the position of spinner to shared preference
     }
 
     @Override

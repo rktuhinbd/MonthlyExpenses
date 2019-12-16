@@ -23,7 +23,7 @@ public class Validation {
                 nameErrorMessage = "Name can't be less than 3 characters";
                 return false;
             } else {
-                Pattern namePattern = Pattern.compile("^[ A-Z.a-z]+$");
+                Pattern namePattern = Pattern.compile("^[ A-Z.,a-z]+$");
                 Matcher patternMatcher = namePattern.matcher(name);
 
                 if (patternMatcher.find()) {

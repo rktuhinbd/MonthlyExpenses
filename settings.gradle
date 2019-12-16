@@ -1,2 +1,2 @@
 include ':app'
-rootProject.name='Monthly Expenses'
+rootProject.name='Smart Mess Manager'

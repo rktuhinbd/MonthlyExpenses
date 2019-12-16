@@ -15,7 +15,7 @@
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="20dp"
         android:fontFamily="@font/arima_madurai_extrabold"
-        android:text="@string/monthly_expenses"
+        android:text="@string/mess_manager"
         android:textColor="@color/colorWhite"
         android:textSize="@dimen/text_heading_large" />
 
