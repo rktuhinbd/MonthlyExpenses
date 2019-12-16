@@ -67,6 +67,7 @@ public class RentActivity extends AppCompatActivity implements AddRentDialogList
         });
     }
 
+    //Initiate properties
     private void initiateProperties() {
         recyclerView = findViewById(R.id.recyclerView_rents);
         fab = findViewById(R.id.fab);
@@ -106,8 +107,6 @@ public class RentActivity extends AppCompatActivity implements AddRentDialogList
         });
     }
 
-    //Update RecyclerView
-
     //Initiate Rent Pie Chart
     private void initiatePieChart() {
         for (int i = 0; i < rents.size(); i++) {
@@ -120,11 +119,13 @@ public class RentActivity extends AppCompatActivity implements AddRentDialogList
             pieDataSet.setValueTypeface(getResources().getFont(R.font.arima_madurai_bold));
         }
 //        pieDataSet.setDrawValues(false);
-        pieDataSet.setValueTextColor(Color.WHITE);
+        pieDataSet.setValueTextColor(Color.WHITE);      //Set Pie chart value text color
         pieDataSet.setValueTextSize(12f);
         pieData = new PieData(pieDataSet);
 
-        pieChart.setDrawSliceText(false);
+        pieChart.setDescription(null);                  //Hide description label in Pie chart
+
+        pieChart.setDrawSliceText(false);               //Hide Pie chart text
         pieChart.animateX(1000);
         pieChart.setData(pieData);
         pieChart.invalidate();
