@@ -71,11 +71,15 @@ public class AddRentDialog extends DialogFragment implements AdapterView.OnItemS
         buttonSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                rentAmount = Integer.parseInt(editTextAmount.getText().toString().trim());
-                rentDescription = editTextDescription.getText().toString().trim();
+                if (!editTextAmount.getText().toString().isEmpty()) {
+                    rentAmount = Integer.parseInt(editTextAmount.getText().toString().trim());
+                    rentDescription = editTextDescription.getText().toString().trim();
 
-                dialogListener.stateChanged(true, rentAmount, rentCategory, rentDescription);
-                getDialog().cancel();
+                    dialogListener.stateChanged(true, rentAmount, rentCategory, rentDescription);
+                    getDialog().cancel();
+                } else {
+                    editTextAmount.setError("Please enter rent amount");
+                }
             }
         });
     }
