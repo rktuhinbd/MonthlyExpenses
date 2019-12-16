@@ -31,7 +31,7 @@
             android:layout_marginStart="@dimen/padding_extra_wide"
             android:layout_marginTop="@dimen/padding_extra_wide"
             android:fontFamily="@font/arima_madurai_extrabold"
-            android:text="@string/add_member"
+            android:text="@string/member_information"
             android:textColor="@color/colorBlack"
             android:textSize="@dimen/text_extra_large"
             tools:ignore="RelativeOverlap" />
@@ -164,7 +164,7 @@
                 android:layout_marginTop="@dimen/margin_wide"
                 android:background="@drawable/background_button"
                 android:fontFamily="@font/arima_madurai_bold"
-                android:text="@string/add_member"
+                android:text="@string/update"
                 android:textColor="@color/colorWhite"
                 android:textSize="@dimen/text_medium" />
 

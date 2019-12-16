@@ -17,34 +17,38 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 
-import com.rktuhinbd.smartmessmanager.Listener.AddMemberDialogListener;
+import com.rktuhinbd.smartmessmanager.Listener.UpdateMemberInfoDialogListener;
 import com.rktuhinbd.smartmessmanager.R;
+import com.rktuhinbd.smartmessmanager.Utility.Keys;
 import com.rktuhinbd.smartmessmanager.Utility.Validation;
 
-public class AddMemberDialog extends DialogFragment implements AdapterView.OnItemSelectedListener {
+public class UpdateMemberInfoDialog extends DialogFragment implements AdapterView.OnItemSelectedListener {
 
-    private AddMemberDialogListener dialogListener;
+    private UpdateMemberInfoDialogListener dialogListener;
 
-    public void setDialogListener(AddMemberDialogListener dialogListener) {
+    public void setDialogListener(UpdateMemberInfoDialogListener dialogListener) {
         this.dialogListener = dialogListener;
     }
 
     private ArrayAdapter<CharSequence> spinnerAdapter;
-    private Spinner spinner;
+    private Spinner spinnerOccupation;
     private EditText editTextName, editTextPhone, editTextEmail, editTextAddress, editTextNationalId, editTextOrganisation;
     private ImageButton imageButtonClose;
     private Button buttonAddMember;
 
-    private String name, phone, email, homeAddress, nationalId, occupation, organisation;
+    private String name, phone, mailAddress, homeAddress, nationalId, occupation, organisation;
+    private int spinnerSelection;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.dialog_add_member, container, false);
+        View view = inflater.inflate(R.layout.dialog_update_member_info, container, false);
         getDialog().getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
 
-        setSpinner(view);               //Spinner initialization and action
         initiateProperties(view);       //Instantiate all properties
+        getData();                      //Get data from bundle
+        setData();                      //Set data to view properties
+        setSpinner(view);               //Spinner initialization and action
         setButtonAction();              //Set button action
 
         return view;
@@ -58,21 +62,61 @@ public class AddMemberDialog extends DialogFragment implements AdapterView.OnIte
         editTextAddress = view.findViewById(R.id.editText_address);
         editTextNationalId = view.findViewById(R.id.editText_nationalId);
         editTextOrganisation = view.findViewById(R.id.editText_organisation);
-        spinner = new Spinner(getActivity());
+        spinnerOccupation = new Spinner(getActivity());
         imageButtonClose = view.findViewById(R.id.imageButton_close);
         buttonAddMember = view.findViewById(R.id.button_updateMemberInfo);
     }
 
+    //Get data from bundle
+    private void getData() {
+        Bundle bundle = getArguments();
+        if (bundle != null) {
+            name = bundle.getString(Keys.NAME);
+            phone = bundle.getString(Keys.PHONE);
+            mailAddress = bundle.getString(Keys.MAIL_ADDRESS);
+            homeAddress = bundle.getString(Keys.HOME_ADDRESS);
+            nationalId = bundle.getString(Keys.NATIONAL_ID);
+            occupation = bundle.getString(Keys.OCCUPATION);
+            organisation = bundle.getString(Keys.ORGANISATION);
+
+            switch (occupation) {
+                case "Student":
+                    spinnerSelection = 0;
+                    break;
+                case "Job Holder":
+                    spinnerSelection = 1;
+                    break;
+                case "Business":
+                    spinnerSelection = 2;
+                    break;
+                case "Unemployed":
+                    spinnerSelection = 3;
+                    break;
+            }
+        }
+    }
+
+    //Set data to view
+    private void setData() {
+        editTextName.setText(name);
+        editTextPhone.setText(phone);
+        editTextEmail.setText(mailAddress);
+        editTextAddress.setText(homeAddress);
+        editTextNationalId.setText(nationalId);
+        editTextOrganisation.setText(organisation);
+    }
+
     //Spinner function to get Occupation
     private void setSpinner(View view) {
-        spinner = view.findViewById(R.id.spinner_occupation);
-        // Create an ArrayAdapter using the string array and a default spinner layout
+        spinnerOccupation = view.findViewById(R.id.spinner_occupation);
+        // Create an ArrayAdapter using the string array and a custom spinner layout
         spinnerAdapter = ArrayAdapter.createFromResource(view.getContext(), R.array.occupations, R.layout.spinner_background_martinique);
         // Specify the layout to use when the list of choices appears
         spinnerAdapter.setDropDownViewResource(R.layout.spinner_background_martinique);
         // Apply the adapter to the spinner
-        spinner.setAdapter(spinnerAdapter);
-        spinner.setOnItemSelectedListener(this);
+        spinnerOccupation.setAdapter(spinnerAdapter);
+        spinnerOccupation.setSelection(spinnerSelection);
+        spinnerOccupation.setOnItemSelectedListener(this);
     }
 
     //Set Add member button and close imageButton action
@@ -82,11 +126,11 @@ public class AddMemberDialog extends DialogFragment implements AdapterView.OnIte
             public void onClick(View v) {       //Add member button action
                 name = editTextName.getText().toString().trim();
                 phone = editTextPhone.getText().toString().trim();
-                email = editTextEmail.getText().toString().trim();
+                mailAddress = editTextEmail.getText().toString().trim();
                 homeAddress = editTextAddress.getText().toString().trim();
                 nationalId = editTextNationalId.getText().toString().trim();
                 organisation = editTextOrganisation.getText().toString().trim();
-                setButtonAddMember();
+                setButtonUpdateMemberInfo();
             }
         });
 
@@ -136,9 +180,9 @@ public class AddMemberDialog extends DialogFragment implements AdapterView.OnIte
     }
 
     //Add member button's functionality method
-    private void setButtonAddMember() {
-        if (inputValidation(name, phone, email, homeAddress, nationalId)) {
-            dialogListener.stateChanged(true, name, phone, email, homeAddress, nationalId, occupation, organisation);
+    private void setButtonUpdateMemberInfo() {
+        if (inputValidation(name, phone, mailAddress, homeAddress, nationalId)) {
+            dialogListener.stateChanged(true, name, phone, mailAddress, homeAddress, nationalId, occupation, organisation);
             getDialog().cancel();
         }
     }

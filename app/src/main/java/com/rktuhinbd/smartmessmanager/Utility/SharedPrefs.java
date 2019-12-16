@@ -6,17 +6,13 @@ import android.content.SharedPreferences;
 import java.util.Set;
 
 /**
- * Created by Mr. Forhad on 6/20/2019.
+ * Created by Md. Rejaul Karim
  */
 public class SharedPrefs {
 
     private SharedPreferences sharedPreferences;
 
     private static final String PREFERENCE = "pref";
-
-    public static final String MEMBERS = "members";
-    public static final String MONTH_SELECTED = "month_selected";
-
 
     public SharedPrefs(Context mContext) {
         sharedPreferences = mContext.getSharedPreferences(PREFERENCE, Context.MODE_PRIVATE);

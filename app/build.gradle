@@ -4,7 +4,7 @@ android {
     compileSdkVersion 29
     buildToolsVersion "29.0.2"
     defaultConfig {
-        applicationId "com.rktuhinbd.monthlyexpenses"
+        applicationId "com.rktuhinbd.smartmessmanager"
         minSdkVersion 21
         targetSdkVersion 29
         versionCode 1
@@ -30,4 +30,6 @@ dependencies {
 
     implementation 'androidx.recyclerview:recyclerview:1.1.0'  //RecyclerView dependency
     implementation 'androidx.cardview:cardview:1.0.0'  //CardView dependency
+
+    implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'   //MPAndroid Chart dependency
 }

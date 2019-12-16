@@ -19,7 +19,7 @@
     </style>
 
     <!--    Custom font-->
-    <style name="CustomFont" parent="TextAppearance.AppCompat.Title"/>
+    <style name="CustomFont" parent="TextAppearance.AppCompat.Title" />
 
     <style name="AppTheme.NoActionBar">
         <item name="windowActionBar">false</item>

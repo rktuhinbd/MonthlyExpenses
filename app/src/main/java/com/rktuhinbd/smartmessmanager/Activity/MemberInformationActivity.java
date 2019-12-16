@@ -1,7 +1,5 @@
 package com.rktuhinbd.smartmessmanager.Activity;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -9,49 +7,64 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.rktuhinbd.smartmessmanager.Model.MemberList;
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.google.android.material.snackbar.Snackbar;
+import com.rktuhinbd.smartmessmanager.Database.DatabaseHelper;
+import com.rktuhinbd.smartmessmanager.Dialog.UpdateMemberInfoDialog;
+import com.rktuhinbd.smartmessmanager.Listener.UpdateMemberInfoDialogListener;
 import com.rktuhinbd.smartmessmanager.R;
-import com.rktuhinbd.smartmessmanager.Utility.Constants;
+import com.rktuhinbd.smartmessmanager.Utility.Keys;
 
-import java.util.ArrayList;
+public class MemberInformationActivity extends AppCompatActivity implements UpdateMemberInfoDialogListener {
 
-public class MemberInformationActivity extends AppCompatActivity {
-
+    private View view;
     private Button buttonRemoveMember, buttonUpdateInformation;
     private ImageView imageViewProfilePhoto;
     private TextView textViewName, textViewPhone, textViewMailAddress, textViewHomeAddress, textViewNationalId, textViewOccupation, textViewOrganisation;
 
-    private ArrayList<MemberList> memberLists;
+    private DatabaseHelper databaseHelper;
 
-    private String name, phone, mailAddress, homeAddress, nationalId, occupation, organisation, profilePhotoUrl;
-    private int position;
+    private String memberId, name, phone, mailAddress, homeAddress, nationalId, occupation, organisation, profilePhotoUrl;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_member_information);
+        view = getWindow().getDecorView().findViewById(android.R.id.content);
+
+        databaseHelper = new DatabaseHelper(this);
 
         getData();
         initiateProperties();
         setData();
 
         setRemoveUser();
+        setUpdateMemberInfo();
     }
 
     private void getData() {
-        memberLists = new ArrayList<>();
+        memberId = getIntent().getStringExtra(Keys.ID);
+        name = getIntent().getStringExtra(Keys.NAME);
+        phone = getIntent().getStringExtra(Keys.PHONE);
+        mailAddress = getIntent().getStringExtra(Keys.MAIL_ADDRESS);
+        homeAddress = getIntent().getStringExtra(Keys.HOME_ADDRESS);
+        nationalId = getIntent().getStringExtra(Keys.NATIONAL_ID);
+        occupation = getIntent().getStringExtra(Keys.OCCUPATION);
+        organisation = getIntent().getStringExtra(Keys.ORGANISATION);
+        profilePhotoUrl = getIntent().getStringExtra(Keys.PROFILE_PHOTO_URL);
+    }
 
-        position = getIntent().getIntExtra(Constants.POSITION, -1);
-        name = getIntent().getStringExtra(Constants.NAME);
-        phone = getIntent().getStringExtra(Constants.PHONE);
-        mailAddress = getIntent().getStringExtra(Constants.EMAIL);
-        homeAddress = getIntent().getStringExtra(Constants.HOME_ADDRESS);
-        nationalId = getIntent().getStringExtra(Constants.NATIONAL_ID);
-        occupation = getIntent().getStringExtra(Constants.OCCUPATION);
-        organisation = getIntent().getStringExtra(Constants.ORGANISATION);
-        profilePhotoUrl = getIntent().getStringExtra(Constants.PROFILE_PHOTO_URL);
-
-        Log.e("Position", position + "");
+    private void updateData(String name, String phone, String mailAddress, String homeAddress, String nationalId, String occupation, String organisation,
+                            String profilePhotoUrl) {
+        this.name = name;
+        this.phone = phone;
+        this.mailAddress = mailAddress;
+        this.homeAddress = homeAddress;
+        this.nationalId = nationalId;
+        this.occupation = occupation;
+        this.organisation = organisation;
+        this.profilePhotoUrl = profilePhotoUrl;
     }
 
     private void initiateProperties() {
@@ -69,9 +82,9 @@ public class MemberInformationActivity extends AppCompatActivity {
     }
 
     private void setData() {
-        if(!profilePhotoUrl.isEmpty()){
+        if (!profilePhotoUrl.isEmpty()) {
             //Load profile photo url into imageView using Picasso
-        }else{
+        } else {
             //Load nothing into imageView
         }
 
@@ -88,9 +101,47 @@ public class MemberInformationActivity extends AppCompatActivity {
         buttonRemoveMember.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                memberLists.remove(position);
+                Log.e("Member ID", memberId);
+                databaseHelper.removeMember(memberId);
                 finish();
             }
         });
+    }
+
+    private void setUpdateMemberInfo() {
+        buttonUpdateInformation.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                updateMemberInfoDialog();
+            }
+        });
+    }
+
+    private void updateMemberInfoDialog() {
+        UpdateMemberInfoDialog dialog = new UpdateMemberInfoDialog();
+        Bundle bundle = new Bundle();
+        bundle.putString(Keys.NAME, name);
+        bundle.putString(Keys.PHONE, phone);
+        bundle.putString(Keys.MAIL_ADDRESS, mailAddress);
+        bundle.putString(Keys.HOME_ADDRESS, homeAddress);
+        bundle.putString(Keys.NATIONAL_ID, nationalId);
+        bundle.putString(Keys.OCCUPATION, occupation);
+        bundle.putString(Keys.ORGANISATION, organisation);
+        dialog.setCancelable(true);
+        dialog.setDialogListener(this);
+        dialog.setArguments(bundle);
+        dialog.show(getSupportFragmentManager(), "Update member info");
+    }
+
+    @Override
+    public void stateChanged(boolean updateToken, String name, String contactNumber, String mailAddress, String homeAddress, String nationalId,
+                             String occupation, String organisation) {
+        if (updateToken) {
+            memberId = getIntent().getStringExtra(Keys.ID);
+            databaseHelper.updateMemberInfo(memberId, name, contactNumber, mailAddress, homeAddress, nationalId, occupation, organisation, "");
+            updateData(name, contactNumber, mailAddress, homeAddress, nationalId, occupation, organisation, "");
+            setData();
+            Snackbar.make(view, "Member information updated.", Snackbar.LENGTH_LONG).setAction("Action", null).show();
+        }
     }
 }
