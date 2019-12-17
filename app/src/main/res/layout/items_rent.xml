@@ -17,6 +17,7 @@
             android:id="@+id/cardView_logo"
             android:layout_width="48dp"
             android:layout_height="48dp"
+            android:padding="@dimen/padding_tiny"
             android:layout_centerVertical="true"
             android:layout_marginEnd="@dimen/margin_normal"
             android:elevation="0dp"
@@ -24,8 +25,8 @@
 
             <ImageView
                 android:id="@+id/imageView_rentLogo"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:contentDescription="@string/house_rent"
                 android:src="@drawable/ic_house_rent" />
 
