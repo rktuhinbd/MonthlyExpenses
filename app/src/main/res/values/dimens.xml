@@ -13,7 +13,8 @@
 
 
     <!--    Dimensions for padding-->
-    <dimen name="padding_tiny">4dp</dimen>
+    <dimen name="padding_very_tiny">6dp</dimen>
+    <dimen name="padding_tiny">8dp</dimen>
     <dimen name="padding_narrow">12dp</dimen>
     <dimen name="padding_normal">16dp</dimen>
     <dimen name="padding_wide">20dp</dimen>
