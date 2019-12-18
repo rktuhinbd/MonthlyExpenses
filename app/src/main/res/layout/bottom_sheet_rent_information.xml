@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="@dimen/padding_normal"
-    xmlns:tools="http://schemas.android.com/tools">
+    android:padding="@dimen/padding_normal">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -12,7 +12,59 @@
         android:background="@drawable/background_bottom_sheet"
         tools:ignore="UselessParent">
 
+        <TextView
+            android:id="@+id/textView_rentCategory"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/arima_madurai_bold"
+            android:text="@string/rent_category"
+            android:textColor="@color/colorRussianViolet"
+            android:textSize="@dimen/text_heading_small" />
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/margin_very_tiny"
+            android:layout_toStartOf="@+id/textView_rentAmount"
+            android:fontFamily="@font/arima_madurai_bold"
+            android:text="@string/taka_sign"
+            android:textColor="@color/colorRussianViolet"
+            android:textSize="@dimen/text_heading_large"
+            tools:ignore="RelativeOverlap" />
+
+        <TextView
+            android:id="@+id/textView_rentAmount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:fontFamily="@font/arima_madurai_bold"
+            android:text="@string/_0"
+            android:textColor="@color/colorRussianViolet"
+            android:textSize="@dimen/text_heading_large"
+            tools:ignore="RelativeOverlap" />
+
+        <TextView
+            android:id="@+id/textView_description"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/textView_rentAmount"
+            android:layout_marginTop="@dimen/margin_tiny"
+            android:fontFamily="@font/arima_madurai_bold"
+            android:text="@string/description"
+            android:textColor="@color/colorRussianViolet"
+            android:textSize="@dimen/text_medium" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/button_height_wide"
+            android:layout_below="@+id/textView_description"
+            android:layout_marginTop="@dimen/margin_normal"
+            android:layout_marginBottom="@dimen/margin_normal"
+            android:background="@drawable/background_button"
+            android:fontFamily="@font/arima_madurai_extrabold"
+            android:text="@string/update"
+            android:textColor="@color/colorWhite"
+            android:textSize="@dimen/text_heading_small" />
 
     </RelativeLayout>
 
