@@ -44,10 +44,27 @@
             tools:ignore="RelativeOverlap" />
 
         <TextView
-            android:id="@+id/textView_description"
+            android:id="@+id/textView_rentDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/textView_rentCategory"
+            android:fontFamily="@font/arima_madurai_bold"
+            android:text="@string/date"
+            android:textColor="@color/colorRussianViolet"
+            android:textSize="@dimen/text_medium" />
+
+        <!--        <View-->
+        <!--            android:id="@+id/view_divider"-->
+        <!--            android:layout_width="match_parent"-->
+        <!--            android:layout_height="1dp"-->
+        <!--            android:background="@color/colorRussianViolet"-->
+        <!--            android:layout_below="@+id/textView_rentAmount"/>-->
+
+        <TextView
+            android:id="@+id/textView_rentDescription"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/textView_rentAmount"
+            android:layout_below="@+id/textView_rentDate"
             android:layout_marginTop="@dimen/margin_tiny"
             android:fontFamily="@font/arima_madurai_bold"
             android:text="@string/description"
@@ -55,9 +72,10 @@
             android:textSize="@dimen/text_medium" />
 
         <Button
+            android:id="@+id/button_updateRentInformation"
             android:layout_width="match_parent"
             android:layout_height="@dimen/button_height_wide"
-            android:layout_below="@+id/textView_description"
+            android:layout_below="@+id/textView_rentDescription"
             android:layout_marginTop="@dimen/margin_normal"
             android:layout_marginBottom="@dimen/margin_normal"
             android:background="@drawable/background_button"

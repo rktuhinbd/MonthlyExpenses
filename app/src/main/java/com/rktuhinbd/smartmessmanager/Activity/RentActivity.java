@@ -20,6 +20,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.rktuhinbd.smartmessmanager.Adapter.RentRecyclerAdapter;
 import com.rktuhinbd.smartmessmanager.Database.DatabaseHelper;
 import com.rktuhinbd.smartmessmanager.Dialog.AddRentDialog;
+import com.rktuhinbd.smartmessmanager.Dialog.RentInformationBottomSheet;
 import com.rktuhinbd.smartmessmanager.Listener.AddRentDialogListener;
 import com.rktuhinbd.smartmessmanager.Model.Rents;
 import com.rktuhinbd.smartmessmanager.R;
@@ -29,7 +30,7 @@ import com.rktuhinbd.smartmessmanager.Utility.SharedPrefs;
 import java.util.ArrayList;
 import java.util.List;
 
-public class RentActivity extends AppCompatActivity implements AddRentDialogListener {
+public class RentActivity extends AppCompatActivity implements AddRentDialogListener, RentInformationBottomSheet.BottomSheetListener {
 
     private PieChart pieChart;
     private FloatingActionButton fab;
@@ -44,7 +45,8 @@ public class RentActivity extends AppCompatActivity implements AddRentDialogList
     private List<PieEntry> pieEntries;
     private PieData pieData;
 
-    private String month;
+    private String rentCategory, rentDescription, rentDate;
+    private int rentAmount;
 
     @Override
 
@@ -77,7 +79,7 @@ public class RentActivity extends AppCompatActivity implements AddRentDialogList
         pieEntries = new ArrayList<>();
 
         sharedPrefs = new SharedPrefs(this);
-        month = sharedPrefs.getSharedPrefDataString(Keys.MONTH);
+        rentDate = sharedPrefs.getSharedPrefDataString(Keys.MONTH);
 
         databaseHelper = new DatabaseHelper(this);
     }
@@ -89,7 +91,7 @@ public class RentActivity extends AppCompatActivity implements AddRentDialogList
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setHasFixedSize(true);
 
-        rents = databaseHelper.getRents(month);
+        rents = databaseHelper.getRents(rentDate);
         int totalRent = 0;
         for (int i = 0; i < rents.size(); i++) {
             totalRent += rents.get(i).getRentAmount();
@@ -131,6 +133,18 @@ public class RentActivity extends AppCompatActivity implements AddRentDialogList
         pieChart.invalidate();
     }
 
+    //Open bottom sheet to show rent details
+    private void rentDetailsBottomSheet() {
+        RentInformationBottomSheet bottomSheet = new RentInformationBottomSheet();
+        Bundle bundle = new Bundle();
+        bundle.putString(Keys.RENT_CATEGORY, rentCategory);
+        bundle.putInt(Keys.RENT_AMOUNT, rentAmount);
+        bundle.putString(Keys.RENT_DATE, rentDate);
+        bundle.putString(Keys.RENT_DESCRIPTION, rentDescription);
+        bottomSheet.setArguments(bundle);
+        bottomSheet.show(getSupportFragmentManager(), "Rent information bottom sheet");
+    }
+
     //Update Rent Pie Chart
     private void updatePieChart(int amount, String rentCategory) {
         pieEntries.add(new PieEntry(amount, rentCategory));
@@ -152,9 +166,15 @@ public class RentActivity extends AppCompatActivity implements AddRentDialogList
     @Override
     public void stateChanged(boolean updateToken, int amount, String category, String description) {
         if (updateToken) {
-            databaseHelper.addRent(amount, category, description, month);
+            databaseHelper.addRent(amount, category, description, rentDate);
             updatePieChart(amount, category);
             initiateRecyclerView();
         }
+    }
+
+    //Bottom sheet
+    @Override
+    public void onBottomSheetItemClick(String key) {
+
     }
 }
