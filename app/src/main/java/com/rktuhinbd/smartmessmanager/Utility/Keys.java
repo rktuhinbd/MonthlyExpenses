@@ -15,4 +15,8 @@ public class Keys {
     public static final String TOTAL_RENT = "total_rent";
     public static final String MONTH_SELECTED = "month_selected";
     public static final String MONTH = "month";
+    public static final String RENT_CATEGORY = "rentCategory";
+    public static final String RENT_AMOUNT = "rentAmount";
+    public static final String RENT_DATE = "rentDate";
+    public static final String RENT_DESCRIPTION= "rentDescription";
 }

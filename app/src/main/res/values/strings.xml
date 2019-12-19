@@ -33,6 +33,7 @@
     <string name="rent_category">Rent Category</string>
     <string name="calendar">Calendar</string>
     <string name="month">Month</string>
+    <string name="date">Date</string>
 
     <string-array name="months">
         <item>January</item>
