@@ -4,7 +4,6 @@ import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -45,7 +44,7 @@ public class RentActivity extends AppCompatActivity implements AddRentDialogList
     private List<PieEntry> pieEntries;
     private PieData pieData;
 
-    private String rentCategory, rentDescription, rentDate;
+    private String rentId, rentCategory, rentDescription, rentRentDate;
     private int rentAmount;
 
     @Override
@@ -79,7 +78,7 @@ public class RentActivity extends AppCompatActivity implements AddRentDialogList
         pieEntries = new ArrayList<>();
 
         sharedPrefs = new SharedPrefs(this);
-        rentDate = sharedPrefs.getSharedPrefDataString(Keys.MONTH);
+        rentRentDate = sharedPrefs.getSharedPrefDataString(Keys.MONTH);
 
         databaseHelper = new DatabaseHelper(this);
     }
@@ -91,7 +90,7 @@ public class RentActivity extends AppCompatActivity implements AddRentDialogList
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setHasFixedSize(true);
 
-        rents = databaseHelper.getRents(rentDate);
+        rents = databaseHelper.getRents(rentRentDate);
         int totalRent = 0;
         for (int i = 0; i < rents.size(); i++) {
             totalRent += rents.get(i).getRentAmount();
@@ -104,7 +103,11 @@ public class RentActivity extends AppCompatActivity implements AddRentDialogList
         rentRecyclerAdapter.setOnItemClickListener(new RentRecyclerAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(int position) {
-                Toast.makeText(getApplicationContext(), "Item clicked on position: " + position, Toast.LENGTH_SHORT).show();
+                rentId = rents.get(position).getRentId();
+                rentCategory = rents.get(position).getRentCategory();
+                rentAmount = rents.get(position).getRentAmount();
+                rentDescription = rents.get(position).getRentDescription();
+                rentDetailsBottomSheet(position);
             }
         });
     }
@@ -134,15 +137,17 @@ public class RentActivity extends AppCompatActivity implements AddRentDialogList
     }
 
     //Open bottom sheet to show rent details
-    private void rentDetailsBottomSheet() {
+    private void rentDetailsBottomSheet(int position) {
         RentInformationBottomSheet bottomSheet = new RentInformationBottomSheet();
         Bundle bundle = new Bundle();
+        bundle.putInt(Keys.POSITION, position);
+        bundle.putString(Keys.ID, rentId);
         bundle.putString(Keys.RENT_CATEGORY, rentCategory);
         bundle.putInt(Keys.RENT_AMOUNT, rentAmount);
-        bundle.putString(Keys.RENT_DATE, rentDate);
+        bundle.putString(Keys.RENT_DATE, rentRentDate);
         bundle.putString(Keys.RENT_DESCRIPTION, rentDescription);
         bottomSheet.setArguments(bundle);
-        bottomSheet.show(getSupportFragmentManager(), "Rent information bottom sheet");
+        bottomSheet.show(getSupportFragmentManager(), "Rent info bottom sheet");
     }
 
     //Update Rent Pie Chart
@@ -166,7 +171,7 @@ public class RentActivity extends AppCompatActivity implements AddRentDialogList
     @Override
     public void stateChanged(boolean updateToken, int amount, String category, String description) {
         if (updateToken) {
-            databaseHelper.addRent(amount, category, description, rentDate);
+            databaseHelper.addRent(amount, category, description, rentRentDate);
             updatePieChart(amount, category);
             initiateRecyclerView();
         }

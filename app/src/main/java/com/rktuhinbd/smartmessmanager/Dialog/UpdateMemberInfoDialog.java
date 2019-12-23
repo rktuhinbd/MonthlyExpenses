@@ -137,7 +137,7 @@ public class UpdateMemberInfoDialog extends DialogFragment implements AdapterVie
         imageButtonClose.setOnClickListener(new View.OnClickListener() {        //Close dialog imageButton press
             @Override
             public void onClick(View v) {
-                setImageButtonClose();
+                getDialog().cancel();
             }
         });
     }
@@ -185,11 +185,6 @@ public class UpdateMemberInfoDialog extends DialogFragment implements AdapterVie
             dialogListener.stateChanged(true, name, phone, mailAddress, homeAddress, nationalId, occupation, organisation);
             getDialog().cancel();
         }
-    }
-
-    //Close dialog imageButton's functionality method
-    private void setImageButtonClose() {
-        getDialog().cancel();
     }
 
     //Spinner item selection method

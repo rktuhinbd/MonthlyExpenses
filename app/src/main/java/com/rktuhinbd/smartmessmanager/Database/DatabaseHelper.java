@@ -51,9 +51,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String CREATE_RENT_TABLE = "CREATE TABLE " + RENT_TABLE + "("
             + RENT_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
             + RENT_AMOUNT + " INTEGER NOT NULL, "
-            + RENT_CATEGORY + " VARCHAR(100)  , "
-            + RENT_DESCRIPTION + " VARCHAR(250)  , "
-            + RENT_MONTH + " VARCHAR(15));";
+            + RENT_MONTH + " VARCHAR(15), "
+            + RENT_CATEGORY + " VARCHAR(100) , "
+            + RENT_DESCRIPTION + " VARCHAR(250));";
 
     public DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, VERSION);
@@ -215,5 +215,32 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             }
         }
         return rents;
+    }
+
+    //Update member information
+    public void updateRentInfo(String rentId, String rentCategory, int rentAmount, String rentDate, String rentDescription) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        String query = "SELECT * FROM " + RENT_TABLE + " WHERE " + RENT_ID + " = '" + rentId + "'";
+        Cursor c = db.rawQuery(query, null);
+
+        if (c.getCount() != 0) {
+            if (c.moveToFirst()) {
+                do {
+                    ContentValues contentValues = new ContentValues();
+                    contentValues.put(RENT_CATEGORY, rentCategory);
+                    contentValues.put(RENT_AMOUNT, rentAmount);
+                    contentValues.put(RENT_MONTH, rentDate);
+                    contentValues.put(RENT_DESCRIPTION, rentDescription);
+                    db.update(RENT_TABLE, contentValues, RENT_ID + "=?", new String[]{rentId});
+                } while (c.moveToNext());
+            }
+        }
+        c.close();
+    }
+
+    //Remove rent information from database
+    public void removeRentInformation(String rentId) {
+        SQLiteDatabase database = this.getReadableDatabase();
+        database.delete(RENT_TABLE, RENT_ID + "=? ", new String[]{rentId});
     }
 }
