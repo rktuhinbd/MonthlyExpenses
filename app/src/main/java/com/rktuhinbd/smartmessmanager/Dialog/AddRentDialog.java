@@ -85,7 +85,7 @@ public class AddRentDialog extends DialogFragment implements AdapterView.OnItemS
     }
 
 
-    //Spinner function to get Occupation
+    //Spinner function to get Rent Categories
     private void setSpinner(View view) {
         // Create an ArrayAdapter using the string array and a default spinner layout
         spinnerAdapter = ArrayAdapter.createFromResource(view.getContext(), R.array.rentCategories, R.layout.spinner_background_martinique);
