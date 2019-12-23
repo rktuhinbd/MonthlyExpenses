@@ -135,7 +135,7 @@ public class RentInformationBottomSheet extends BottomSheetDialogFragment implem
 
             Toast.makeText(getActivity(), "Rent information updated", Toast.LENGTH_SHORT).show();
             bottomSheetListener.onBottomSheetItemClick("updated");
-//            getDialog().cancel();
+            getDialog().cancel();
         }
     }
 
