@@ -96,8 +96,6 @@ public class RentInformationBottomSheet extends BottomSheetDialogFragment implem
             @Override
             public void onClick(View v) {
                 updateRentInfoDialog();
-                Toast.makeText(getActivity(), "Rent information updated", Toast.LENGTH_SHORT).show();
-                bottomSheetListener.onBottomSheetItemClick("updated");
             }
         });
     }
@@ -122,8 +120,22 @@ public class RentInformationBottomSheet extends BottomSheetDialogFragment implem
     @Override
     public void stateChanged(boolean updateToken, int rentPosition, String rentId, String rentCategory, int rentAmount, String rentDate, String rentDescription) {
         if(updateToken){
+            //Update data to set in view properties
+            this.rentPosition = rentPosition;
+            this.rentId = rentId;
+            this.rentCategory = rentCategory;
+            this.rentAmount = rentAmount;
+            this.rentDate = rentDate;
+            this.rentDescription = rentDescription;
+
+            //Update rent information data to database table
             databaseHelper.updateRentInfo(rentId, rentCategory, rentAmount, rentDate, rentDescription);
-            Toast.makeText(getActivity(), "Rent information updated.", Toast.LENGTH_SHORT).show();
+            //Set updated data to view properties
+            setRentData();
+
+            Toast.makeText(getActivity(), "Rent information updated", Toast.LENGTH_SHORT).show();
+            bottomSheetListener.onBottomSheetItemClick("updated");
+//            getDialog().cancel();
         }
     }
 

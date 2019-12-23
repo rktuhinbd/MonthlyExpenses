@@ -180,6 +180,10 @@ public class RentActivity extends AppCompatActivity implements AddRentDialogList
     //Bottom sheet
     @Override
     public void onBottomSheetItemClick(String key) {
-
+        if(key.equals("updated")){
+            initiateRecyclerView();
+        }else{
+            initiateRecyclerView();
+        }
     }
 }
