@@ -87,7 +87,7 @@ public class RentInformationBottomSheet extends BottomSheetDialogFragment implem
             public void onClick(View v) {
                 databaseHelper.removeRentInformation(rentId);
                 Toast.makeText(getActivity(), "Rent information removed", Toast.LENGTH_SHORT).show();
-                bottomSheetListener.onBottomSheetItemClick("removed");
+                bottomSheetListener.onBottomSheetItemClick("removed", rentPosition);
                 getDialog().cancel();
             }
         });
@@ -96,8 +96,6 @@ public class RentInformationBottomSheet extends BottomSheetDialogFragment implem
             @Override
             public void onClick(View v) {
                 updateRentInfoDialog();
-                Toast.makeText(getActivity(), "Rent information updated", Toast.LENGTH_SHORT).show();
-                bottomSheetListener.onBottomSheetItemClick("updated");
             }
         });
     }
@@ -122,13 +120,27 @@ public class RentInformationBottomSheet extends BottomSheetDialogFragment implem
     @Override
     public void stateChanged(boolean updateToken, int rentPosition, String rentId, String rentCategory, int rentAmount, String rentDate, String rentDescription) {
         if(updateToken){
+            //Update data to set in view properties
+            this.rentPosition = rentPosition;
+            this.rentId = rentId;
+            this.rentCategory = rentCategory;
+            this.rentAmount = rentAmount;
+            this.rentDate = rentDate;
+            this.rentDescription = rentDescription;
+
+            //Update rent information data to database table
             databaseHelper.updateRentInfo(rentId, rentCategory, rentAmount, rentDate, rentDescription);
-            Toast.makeText(getActivity(), "Rent information updated.", Toast.LENGTH_SHORT).show();
+            //Set updated data to view properties
+            setRentData();
+
+            Toast.makeText(getActivity(), "Rent information updated", Toast.LENGTH_SHORT).show();
+            bottomSheetListener.onBottomSheetItemClick("updated", rentPosition);
+            getDialog().cancel();
         }
     }
 
     public interface BottomSheetListener {
-        void onBottomSheetItemClick(String key);                                        //Pass bottom sheet listener key
+        void onBottomSheetItemClick(String key, int position);                                        //Pass bottom sheet listener key
     }
 
     @Override

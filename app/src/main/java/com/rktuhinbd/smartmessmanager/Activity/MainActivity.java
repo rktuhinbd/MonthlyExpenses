@@ -2,6 +2,7 @@ package com.rktuhinbd.smartmessmanager.Activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -43,8 +44,10 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
 
     @Override
-    protected void onPostResume() {
-        super.onPostResume();
+    protected void onResume() {
+        super.onResume();
+        Log.e("On Resume", "Called");
+        sharedPrefs = new SharedPrefs(this);
         setSpinner();
         setCardViewMembers();
         setCardViewHouseRent();
@@ -60,14 +63,10 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         totalRent = sharedPrefs.getSharedPrefDataInt(Keys.TOTAL_RENT);
 
         textViewNumberOfMembers = findViewById(R.id.textView_numberOfMembers);
-        if (numberOfMembers > 0) {
-            textViewNumberOfMembers.setText(String.valueOf(numberOfMembers));
-        }
+        textViewNumberOfMembers.setText(String.valueOf(numberOfMembers));
 
         textViewTotalRent = findViewById(R.id.textView_baseHouseRent);
-        if (totalRent > 0) {
-            textViewTotalRent.setText(String.valueOf(totalRent));
-        }
+        textViewTotalRent.setText(String.valueOf(totalRent));
 
         cardViewMembers = findViewById(R.id.cardView_members);
         cardViewMembers.setOnClickListener(new View.OnClickListener() {

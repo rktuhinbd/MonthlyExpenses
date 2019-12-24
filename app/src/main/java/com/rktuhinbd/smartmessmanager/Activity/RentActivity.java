@@ -179,7 +179,40 @@ public class RentActivity extends AppCompatActivity implements AddRentDialogList
 
     //Bottom sheet
     @Override
-    public void onBottomSheetItemClick(String key) {
+    public void onBottomSheetItemClick(String key, int position) {
+        if (key.equals("updated")) {
+            pieEntries.clear();
+            rents.clear();
+            rents.addAll(databaseHelper.getRents(rentRentDate));
+            rentRecyclerAdapter.notifyDataSetChanged();
 
+            int totalRent = 0;
+            for (int i = 0; i < rents.size(); i++) {
+                totalRent += rents.get(i).getRentAmount();
+                updatePieChart(rents.get(i).getRentAmount(), rents.get(i).getRentCategory());
+            }
+            if (pieEntries.size() == 0) {
+                pieChart.setVisibility(View.GONE);
+            } else {
+                pieChart.setVisibility(View.VISIBLE);
+            }
+            sharedPrefs.setSharedPrefDataInt(Keys.TOTAL_RENT, totalRent);
+        } else {
+            rents.remove(position);
+            rentRecyclerAdapter.notifyItemRemoved(position);
+
+            pieEntries.clear();
+            int totalRent = 0;
+            for (int i = 0; i < rents.size(); i++) {
+                totalRent += rents.get(i).getRentAmount();
+                updatePieChart(rents.get(i).getRentAmount(), rents.get(i).getRentCategory());
+            }
+            if (pieEntries.size() == 0) {
+                pieChart.setVisibility(View.GONE);
+            } else {
+                pieChart.setVisibility(View.VISIBLE);
+            }
+            sharedPrefs.setSharedPrefDataInt(Keys.TOTAL_RENT, totalRent);
+        }
     }
 }
