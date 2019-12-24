@@ -87,7 +87,7 @@ public class RentInformationBottomSheet extends BottomSheetDialogFragment implem
             public void onClick(View v) {
                 databaseHelper.removeRentInformation(rentId);
                 Toast.makeText(getActivity(), "Rent information removed", Toast.LENGTH_SHORT).show();
-                bottomSheetListener.onBottomSheetItemClick("removed");
+                bottomSheetListener.onBottomSheetItemClick("removed", rentPosition);
                 getDialog().cancel();
             }
         });
@@ -134,13 +134,13 @@ public class RentInformationBottomSheet extends BottomSheetDialogFragment implem
             setRentData();
 
             Toast.makeText(getActivity(), "Rent information updated", Toast.LENGTH_SHORT).show();
-            bottomSheetListener.onBottomSheetItemClick("updated");
+            bottomSheetListener.onBottomSheetItemClick("updated", rentPosition);
             getDialog().cancel();
         }
     }
 
     public interface BottomSheetListener {
-        void onBottomSheetItemClick(String key);                                        //Pass bottom sheet listener key
+        void onBottomSheetItemClick(String key, int position);                                        //Pass bottom sheet listener key
     }
 
     @Override

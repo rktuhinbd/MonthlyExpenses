@@ -12,12 +12,12 @@ public class Rents {
         this.rentMonth = rentMonth;
     }
 
-    public String getRentId() {
-        return rentId;
-    }
-
     public int getRentAmount() {
         return rentAmount;
+    }
+
+    public String getRentId() {
+        return rentId;
     }
 
     public String getRentCategory() {
