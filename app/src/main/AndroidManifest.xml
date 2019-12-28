@@ -11,17 +11,16 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".Dialog.AddRentDialog" />
+        <activity android:name=".Dialog.AddExpenseDialog" />
         <activity
-            android:name=".Activity.RentActivity"
-            android:label="@string/title_activity_rent"
+            android:name=".Activity.ExpenseActivity"
+            android:label="@string/expense_info"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".Activity.MemberInformationActivity" />
         <activity android:name=".Dialog.AddMemberDialog" />
         <activity android:name=".Activity.BalanceSheetActivity" />
         <activity android:name=".Activity.MealRateActivity" />
-        <activity android:name=".Activity.ExpenseActivity" />
-        <activity android:name=".Activity.MealActivity" />
+        <activity android:name=".Activity.MealsActivity" />
         <activity
             android:name=".Activity.MembersActivity"
             android:label="@string/title_activity_members"

@@ -20,7 +20,6 @@ import androidx.fragment.app.DialogFragment;
 import com.rktuhinbd.smartmessmanager.Listener.UpdateRentInfoDialogListener;
 import com.rktuhinbd.smartmessmanager.R;
 import com.rktuhinbd.smartmessmanager.Utility.Keys;
-import com.rktuhinbd.smartmessmanager.Utility.Validation;
 
 public class UpdateRentInfoDialog extends DialogFragment implements AdapterView.OnItemSelectedListener {
 
@@ -42,7 +41,7 @@ public class UpdateRentInfoDialog extends DialogFragment implements AdapterView.
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.dialog_update_rent_info, container, false);
+        View view = inflater.inflate(R.layout.dialog_update_expense_info, container, false);
         getDialog().getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
 
         initiateProperties(view);       //Instantiate all properties

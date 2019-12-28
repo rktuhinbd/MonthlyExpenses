@@ -43,12 +43,29 @@ public class MembersActivity extends AppCompatActivity implements AddMemberDialo
         setContentView(R.layout.activity_members);
         Toolbar toolbar = findViewById(R.id.toolbar);
         toolbar.setTitle(R.string.members);
+        toolbar.setTitleTextColor(getResources().getColor(R.color.colorWhite));
         setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+
         view = getWindow().getDecorView().findViewById(android.R.id.content);
 
         initiateProperties();
         setFab();
         initiateRecyclerViewWithMembers();
+    }
+
+
+    @Override
+    public void onBackPressed() {
+        finish();
+    }
+
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
     }
 
 
