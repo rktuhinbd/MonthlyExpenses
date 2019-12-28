@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+<!--    Toolbar Height-->
+    <dimen name="toolbar_height">64dp</dimen>
+
     <!--    Dimensions for texts-->
     <dimen name="text_heading_small">20sp</dimen>
     <dimen name="text_heading_medium">22sp</dimen>

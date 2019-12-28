@@ -17,10 +17,10 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 
-import com.rktuhinbd.smartmessmanager.Listener.AddRentDialogListener;
+import com.rktuhinbd.smartmessmanager.Listener.AddExpenseDialogListener;
 import com.rktuhinbd.smartmessmanager.R;
 
-public class AddRentDialog extends DialogFragment implements AdapterView.OnItemSelectedListener {
+public class AddExpenseDialog extends DialogFragment implements AdapterView.OnItemSelectedListener {
 
     private Spinner spinner;
     private EditText editTextAmount, editTextDescription;
@@ -31,16 +31,16 @@ public class AddRentDialog extends DialogFragment implements AdapterView.OnItemS
     private String rentDescription, rentCategory;
     private int rentAmount;
 
-    private AddRentDialogListener dialogListener;
+    private AddExpenseDialogListener dialogListener;
 
-    public void setDialogListener(AddRentDialogListener dialogListener) {
+    public void setDialogListener(AddExpenseDialogListener dialogListener) {
         this.dialogListener = dialogListener;
     }
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.dialog_add_rent, container, false);
+        View view = inflater.inflate(R.layout.dialog_add_expense, container, false);
         getDialog().getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
 
         initiateProperties(view);

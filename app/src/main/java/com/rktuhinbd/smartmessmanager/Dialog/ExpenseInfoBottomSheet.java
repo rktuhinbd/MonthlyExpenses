@@ -20,7 +20,7 @@ import com.rktuhinbd.smartmessmanager.Listener.UpdateRentInfoDialogListener;
 import com.rktuhinbd.smartmessmanager.R;
 import com.rktuhinbd.smartmessmanager.Utility.Keys;
 
-public class RentInformationBottomSheet extends BottomSheetDialogFragment implements UpdateRentInfoDialogListener {
+public class ExpenseInfoBottomSheet extends BottomSheetDialogFragment implements UpdateRentInfoDialogListener {
 
     private TextView textViewRentCategory, textViewRentAmount, textViewRentDate, textViewRentDescription;
     private Button buttonUpdateRentInfo, buttonRemoveRentInfo;

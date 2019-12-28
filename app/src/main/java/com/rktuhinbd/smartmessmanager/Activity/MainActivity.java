@@ -16,13 +16,15 @@ import com.rktuhinbd.smartmessmanager.R;
 import com.rktuhinbd.smartmessmanager.Utility.Keys;
 import com.rktuhinbd.smartmessmanager.Utility.SharedPrefs;
 
+import java.util.Calendar;
+
 public class MainActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
     private SharedPrefs sharedPrefs;
     private Spinner spinner;
     private ArrayAdapter<CharSequence> spinnerAdapter;
 
-    private CardView cardViewMembers, cardViewRent, cardViewMeal, cardViewExpense, cardViewMealRate, cardViewBalanceSheet;
+    private CardView cardViewMembers, cardViewExpenses, cardViewMeal, cardViewExpense, cardViewMealRate, cardViewBalanceSheet;
     private TextView textViewNumberOfMembers, textViewTotalRent;
 
     private int numberOfMembers = 0, totalRent = 0;
@@ -35,7 +37,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         sharedPrefs = new SharedPrefs(this);
         setSpinner();
         setCardViewMembers();
-        setCardViewHouseRent();
+        setCardViewExpenses();
         setCardViewMeal();
         setCardViewExpense();
         setCardViewMealRate();
@@ -50,7 +52,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         sharedPrefs = new SharedPrefs(this);
         setSpinner();
         setCardViewMembers();
-        setCardViewHouseRent();
+        setCardViewExpenses();
         setCardViewMeal();
         setCardViewExpense();
         setCardViewMealRate();
@@ -65,8 +67,12 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         textViewNumberOfMembers = findViewById(R.id.textView_numberOfMembers);
         textViewNumberOfMembers.setText(String.valueOf(numberOfMembers));
 
-        textViewTotalRent = findViewById(R.id.textView_baseHouseRent);
-        textViewTotalRent.setText(String.valueOf(totalRent));
+        textViewTotalRent = findViewById(R.id.textView_baseExpense);
+        if(totalRent > 0) {
+            textViewTotalRent.setText(String.valueOf(totalRent));
+        } else{
+            textViewTotalRent.setText(String.valueOf(0));
+        }
 
         cardViewMembers = findViewById(R.id.cardView_members);
         cardViewMembers.setOnClickListener(new View.OnClickListener() {
@@ -80,13 +86,13 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     }
 
     //House Rent CardView Action Setting
-    private void setCardViewHouseRent() {
-        cardViewRent = findViewById(R.id.cardView_rent);
+    private void setCardViewExpenses() {
+        cardViewExpenses = findViewById(R.id.cardView_expenses);
 
-        cardViewRent.setOnClickListener(new View.OnClickListener() {
+        cardViewExpenses.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), RentActivity.class);
+                Intent intent = new Intent(getApplicationContext(), ExpenseActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
             }
@@ -100,7 +106,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         cardViewMeal.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), MealActivity.class);
+                Intent intent = new Intent(getApplicationContext(), MealsActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
             }
@@ -152,6 +158,8 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     //Spinner Initialization and Action
     private void setSpinner() {
         int spinnerPosition = sharedPrefs.getSharedPrefDataInt(Keys.MONTH_SELECTED);
+        int currentYear = Calendar.getInstance().get(Calendar.YEAR);
+        int currentMonth = Calendar.getInstance().get(Calendar.MONTH);
 
         spinner = findViewById(R.id.spinner_months);
         // Create an ArrayAdapter using the string array and a default spinner layout
@@ -162,6 +170,8 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         spinner.setAdapter(spinnerAdapter);
         if (spinnerPosition > -1) {
             spinner.setSelection(spinnerPosition);      //Set spinner position according the data from shared preference
+        } else{
+            spinner.setSelection(currentMonth);
         }
         spinner.setOnItemSelectedListener(this);
     }

@@ -93,7 +93,7 @@
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
-                android:id="@+id/cardView_rent"
+                android:id="@+id/cardView_expenses"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_margin="8dp"
@@ -122,7 +122,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:fontFamily="@font/arima_madurai_bold"
-                        android:text="@string/house_rent"
+                        android:text="@string/expenses"
                         android:textColor="@color/colorWhite"
                         android:textSize="@dimen/text_extra_large" />
 
@@ -143,7 +143,7 @@
                             android:textSize="@dimen/text_large" />
 
                         <TextView
-                            android:id="@+id/textView_baseHouseRent"
+                            android:id="@+id/textView_baseExpense"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/arima_madurai_bold"
@@ -183,7 +183,8 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:orientation="vertical"
-                    android:padding="16dp">
+                    android:padding="16dp"
+                    tools:ignore="UseCompoundDrawables">
 
                     <ImageView
                         android:layout_width="64dp"
@@ -236,10 +237,9 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:fontFamily="@font/arima_madurai_bold"
-                        android:text="@string/expenses"
+                        android:text="@string/daily_expense"
                         android:textColor="@color/colorWhite"
                         android:textSize="@dimen/text_extra_large" />
-
 
                 </LinearLayout>
 
