@@ -51,7 +51,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String CREATE_RENT_TABLE = "CREATE TABLE " + RENT_TABLE + "("
             + RENT_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
             + RENT_AMOUNT + " INTEGER NOT NULL, "
-            + RENT_MONTH + " VARCHAR(15), "
+            + RENT_MONTH + " VARCHAR(50), "
             + RENT_CATEGORY + " VARCHAR(100) , "
             + RENT_DESCRIPTION + " VARCHAR(250));";
 

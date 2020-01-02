@@ -23,12 +23,6 @@ import com.rktuhinbd.smartmessmanager.Utility.Keys;
 
 public class UpdateRentInfoDialog extends DialogFragment implements AdapterView.OnItemSelectedListener {
 
-    private UpdateRentInfoDialogListener dialogListener;
-
-    public void setDialogListener(UpdateRentInfoDialogListener dialogListener) {
-        this.dialogListener = dialogListener;
-    }
-
     private ArrayAdapter<CharSequence> spinnerAdapter;
     private Spinner spinnerOccupation;
     private EditText editTextRentAmount, editTextRentDescription, editTextRentDate;
@@ -37,6 +31,12 @@ public class UpdateRentInfoDialog extends DialogFragment implements AdapterView.
 
     private String rentId, rentCategory, rentDate, rentDescription;
     private int spinnerSelection, rentPosition, rentAmount;
+
+    private UpdateRentInfoDialogListener dialogListener;
+
+    public void setDialogListener(UpdateRentInfoDialogListener dialogListener) {
+        this.dialogListener = dialogListener;
+    }
 
     @Nullable
     @Override
@@ -118,7 +118,7 @@ public class UpdateRentInfoDialog extends DialogFragment implements AdapterView.
 
     //Spinner function to get Occupation
     private void setSpinner(View view) {
-        spinnerOccupation = view.findViewById(R.id.spinner_rentCategories);
+        spinnerOccupation = view.findViewById(R.id.spinner_rentCategory);
         // Create an ArrayAdapter using the string array and a custom spinner layout
         spinnerAdapter = ArrayAdapter.createFromResource(view.getContext(), R.array.rentCategories, R.layout.spinner_background_martinique);
         // Specify the layout to use when the list of choices appears

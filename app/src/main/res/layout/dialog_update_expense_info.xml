@@ -101,7 +101,7 @@
                 android:textSize="@dimen/text_small" />
 
             <Spinner
-                android:id="@+id/spinner_rentCategories"
+                android:id="@+id/spinner_rentCategory"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginTop="@dimen/margin_normal"

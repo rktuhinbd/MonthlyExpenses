@@ -2,7 +2,6 @@ package com.rktuhinbd.smartmessmanager.Dialog;
 
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,13 +21,13 @@ import com.rktuhinbd.smartmessmanager.R;
 
 public class AddExpenseDialog extends DialogFragment implements AdapterView.OnItemSelectedListener {
 
-    private Spinner spinner;
-    private EditText editTextAmount, editTextDescription;
+    private Spinner spinnerRentCategory;
+    private EditText editTextAmount, editTextDate, editTextDescription;
     private ImageButton imageButtonClose;
     private Button buttonSave;
 
-    private ArrayAdapter<CharSequence> spinnerAdapter;
-    private String rentDescription, rentCategory;
+    private ArrayAdapter<CharSequence> rentCategoryAdapter;
+    private String rentDescription, rentCategory, rentDate;
     private int rentAmount;
 
     private AddExpenseDialogListener dialogListener;
@@ -44,18 +43,26 @@ public class AddExpenseDialog extends DialogFragment implements AdapterView.OnIt
         getDialog().getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
 
         initiateProperties(view);
-        setSpinner(view);
+        setRentCategorySpinner(view);
         setButtonAction();
 
         return view;
     }
 
     private void initiateProperties(View view) {
-        spinner = view.findViewById(R.id.spinner_rentCategories);
+        spinnerRentCategory = view.findViewById(R.id.spinner_rentCategory);
         editTextAmount = view.findViewById(R.id.editText_rentAmount);
-        editTextDescription = view.findViewById(R.id.editText_description);
+        editTextDate = view.findViewById(R.id.editText_rentDate);
+        editTextDescription = view.findViewById(R.id.editText_rentDescription);
         imageButtonClose = view.findViewById(R.id.imageButton_close);
         buttonSave = view.findViewById(R.id.button_save);
+
+        editTextDate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
     }
 
     private void setButtonAction() {
@@ -71,29 +78,41 @@ public class AddExpenseDialog extends DialogFragment implements AdapterView.OnIt
         buttonSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (!editTextAmount.getText().toString().isEmpty()) {
-                    rentAmount = Integer.parseInt(editTextAmount.getText().toString().trim());
-                    rentDescription = editTextDescription.getText().toString().trim();
+                rentDate = editTextDate.getText().toString();
+                rentDescription = editTextDescription.getText().toString().trim();
 
-                    dialogListener.stateChanged(true, rentAmount, rentCategory, rentDescription);
-                    getDialog().cancel();
-                } else {
+                int flag = 0;
+
+                if (editTextAmount.getText().toString().isEmpty()) {
                     editTextAmount.setError("Please enter rent amount");
+                } else {
+                    rentAmount = Integer.parseInt(editTextAmount.getText().toString().trim());
+                    flag++;
+                }
+
+                if (rentDate.isEmpty()) {
+                    editTextDate.setError("Please select a date");
+                } else {
+                    flag++;
+                }
+
+                if (flag == 2) {
+                    dialogListener.stateChanged(true, rentAmount, rentCategory, rentDescription, rentDate);
+                    getDialog().cancel();
                 }
             }
         });
     }
 
-
     //Spinner function to get Rent Categories
-    private void setSpinner(View view) {
+    private void setRentCategorySpinner(View view) {
         // Create an ArrayAdapter using the string array and a default spinner layout
-        spinnerAdapter = ArrayAdapter.createFromResource(view.getContext(), R.array.rentCategories, R.layout.spinner_background_martinique);
+        rentCategoryAdapter = ArrayAdapter.createFromResource(view.getContext(), R.array.rentCategories, R.layout.spinner_background_martinique);
         // Specify the layout to use when the list of choices appears
-        spinnerAdapter.setDropDownViewResource(R.layout.spinner_background_martinique);
+        rentCategoryAdapter.setDropDownViewResource(R.layout.spinner_background_martinique);
         // Apply the adapter to the spinner
-        spinner.setAdapter(spinnerAdapter);
-        spinner.setOnItemSelectedListener(this);
+        spinnerRentCategory.setAdapter(rentCategoryAdapter);
+        spinnerRentCategory.setOnItemSelectedListener(this);
     }
 
 
@@ -131,7 +150,6 @@ public class AddExpenseDialog extends DialogFragment implements AdapterView.OnIt
                 rentCategory = "Other";
                 break;
         }
-        Log.e("Rent category", rentCategory);
     }
 
     @Override

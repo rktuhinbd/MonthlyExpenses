@@ -45,7 +45,7 @@ public class ExpenseInfoBottomSheet extends BottomSheetDialogFragment implements
         return view;
     }
 
-    private void getRentData() {                                                        //Get data from bundle
+    private void getRentData() {                                                                    //Get data from bundle
         Bundle bundle = this.getArguments();
         if (bundle != null) {
             rentPosition = this.getArguments().getInt(Keys.POSITION);
@@ -57,7 +57,7 @@ public class ExpenseInfoBottomSheet extends BottomSheetDialogFragment implements
         }
     }
 
-    private void setRentData() {                                                         //Set data to properties
+    private void setRentData() {                                                                    //Set data to properties
         textViewRentCategory.setText(rentCategory);
         textViewRentAmount.setText(String.valueOf(rentAmount));
         textViewRentDate.setText(rentDate);
@@ -69,7 +69,7 @@ public class ExpenseInfoBottomSheet extends BottomSheetDialogFragment implements
         }
     }
 
-    private void initiateProperties(View view) {                                        //Initiate properties
+    private void initiateProperties(View view) {                                                     //Initiate properties
         databaseHelper = new DatabaseHelper(getActivity());
         textViewRentCategory = view.findViewById(R.id.textView_rentCategory);
         textViewRentAmount = view.findViewById(R.id.textView_rentAmount);
@@ -140,7 +140,7 @@ public class ExpenseInfoBottomSheet extends BottomSheetDialogFragment implements
     }
 
     public interface BottomSheetListener {
-        void onBottomSheetItemClick(String key, int position);                                        //Pass bottom sheet listener key
+        void onBottomSheetItemClick(String key, int position);                                      //Pass bottom sheet listener key
     }
 
     @Override

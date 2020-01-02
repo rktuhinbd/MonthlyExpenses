@@ -67,7 +67,22 @@
                 android:textSize="@dimen/text_small" />
 
             <EditText
-                android:id="@+id/editText_description"
+                android:id="@+id/editText_rentDate"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/edittext_height_thick"
+                android:layout_marginTop="@dimen/margin_normal"
+                android:background="@drawable/background_edittext_stroked"
+                android:drawableEnd="@drawable/ic_monthly_calendar"
+                android:fontFamily="@font/arima_madurai_medium"
+                android:hint="@string/date"
+                android:importantForAutofill="no"
+                android:inputType="text"
+                android:paddingStart="@dimen/padding_narrow"
+                android:paddingEnd="@dimen/padding_narrow"
+                android:textSize="@dimen/text_small" />
+
+            <EditText
+                android:id="@+id/editText_rentDescription"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/margin_normal"
@@ -86,7 +101,7 @@
                 android:textSize="@dimen/text_small" />
 
             <Spinner
-                android:id="@+id/spinner_rentCategories"
+                android:id="@+id/spinner_rentCategory"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginTop="@dimen/margin_normal"

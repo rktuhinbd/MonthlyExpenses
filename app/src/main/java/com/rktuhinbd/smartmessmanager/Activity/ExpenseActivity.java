@@ -16,7 +16,7 @@ import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
 import com.github.mikephil.charting.utils.ColorTemplate;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.rktuhinbd.smartmessmanager.Adapter.RentRecyclerAdapter;
+import com.rktuhinbd.smartmessmanager.Adapter.ExpenseRecyclerAdapter;
 import com.rktuhinbd.smartmessmanager.Database.DatabaseHelper;
 import com.rktuhinbd.smartmessmanager.Dialog.AddExpenseDialog;
 import com.rktuhinbd.smartmessmanager.Dialog.ExpenseInfoBottomSheet;
@@ -27,6 +27,7 @@ import com.rktuhinbd.smartmessmanager.Utility.Keys;
 import com.rktuhinbd.smartmessmanager.Utility.SharedPrefs;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 public class ExpenseActivity extends AppCompatActivity implements AddExpenseDialogListener, ExpenseInfoBottomSheet.BottomSheetListener {
@@ -35,7 +36,7 @@ public class ExpenseActivity extends AppCompatActivity implements AddExpenseDial
     private FloatingActionButton fab;
 
     private RecyclerView recyclerView;
-    private RentRecyclerAdapter rentRecyclerAdapter;
+    private ExpenseRecyclerAdapter expenseRecyclerAdapter;
     private LinearLayoutManager layoutManager;
 
     private DatabaseHelper databaseHelper;
@@ -69,7 +70,6 @@ public class ExpenseActivity extends AppCompatActivity implements AddExpenseDial
             }
         });
     }
-
 
     @Override
     public void onBackPressed() {
@@ -111,10 +111,10 @@ public class ExpenseActivity extends AppCompatActivity implements AddExpenseDial
         }
         sharedPrefs.setSharedPrefDataInt(Keys.TOTAL_RENT, totalRent);
 
-        rentRecyclerAdapter = new RentRecyclerAdapter(this, rents);
-        recyclerView.setAdapter(rentRecyclerAdapter);
+        expenseRecyclerAdapter = new ExpenseRecyclerAdapter(this, rents);
+        recyclerView.setAdapter(expenseRecyclerAdapter);
 
-        rentRecyclerAdapter.setOnItemClickListener(new RentRecyclerAdapter.OnItemClickListener() {
+        expenseRecyclerAdapter.setOnItemClickListener(new ExpenseRecyclerAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(int position) {
                 rentId = rents.get(position).getRentId();
@@ -183,9 +183,9 @@ public class ExpenseActivity extends AppCompatActivity implements AddExpenseDial
 
     //Store rent information to database if any value is saved in dialog
     @Override
-    public void stateChanged(boolean updateToken, int amount, String category, String description) {
+    public void stateChanged(boolean updateToken, int amount, String category, String description, String rentDate) {
         if (updateToken) {
-            databaseHelper.addRent(amount, category, description, rentRentDate);
+            databaseHelper.addRent(amount, category, description, rentDate);
             updatePieChart(amount, category);
             initiateRecyclerView();
         }
@@ -198,7 +198,7 @@ public class ExpenseActivity extends AppCompatActivity implements AddExpenseDial
             pieEntries.clear();
             rents.clear();
             rents.addAll(databaseHelper.getRents(rentRentDate));
-            rentRecyclerAdapter.notifyDataSetChanged();
+            expenseRecyclerAdapter.notifyDataSetChanged();
 
             int totalRent = 0;
             for (int i = 0; i < rents.size(); i++) {
@@ -213,7 +213,7 @@ public class ExpenseActivity extends AppCompatActivity implements AddExpenseDial
             sharedPrefs.setSharedPrefDataInt(Keys.TOTAL_RENT, totalRent);
         } else {
             rents.remove(position);
-            rentRecyclerAdapter.notifyItemRemoved(position);
+            expenseRecyclerAdapter.notifyItemRemoved(position);
 
             pieEntries.clear();
             int totalRent = 0;
