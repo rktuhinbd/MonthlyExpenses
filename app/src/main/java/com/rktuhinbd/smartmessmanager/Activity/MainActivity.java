@@ -16,7 +16,10 @@ import com.rktuhinbd.smartmessmanager.R;
 import com.rktuhinbd.smartmessmanager.Utility.Keys;
 import com.rktuhinbd.smartmessmanager.Utility.SharedPrefs;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 
 public class MainActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
@@ -25,7 +28,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     private ArrayAdapter<CharSequence> spinnerAdapter;
 
     private CardView cardViewMembers, cardViewExpenses, cardViewMeal, cardViewExpense, cardViewMealRate, cardViewBalanceSheet;
-    private TextView textViewNumberOfMembers, textViewTotalRent;
+    private TextView textViewNumberOfMembers, textViewTotalExpense;
 
     private int numberOfMembers = 0, totalRent = 0;
 
@@ -61,17 +64,21 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
     //Members CardView Action Setting
     private void setCardViewMembers() {
-        numberOfMembers = sharedPrefs.getSharedPrefDataInt(Keys.MEMBERS);
-        totalRent = sharedPrefs.getSharedPrefDataInt(Keys.TOTAL_RENT);
+        if (sharedPrefs.getSharedPrefDataInt(Keys.MEMBERS) > 0) {
+            numberOfMembers = sharedPrefs.getSharedPrefDataInt(Keys.MEMBERS);
+        }
+        if (sharedPrefs.getSharedPrefDataInt(Keys.TOTAL_RENT) > 0) {
+            totalRent = sharedPrefs.getSharedPrefDataInt(Keys.TOTAL_RENT);
+        }
 
         textViewNumberOfMembers = findViewById(R.id.textView_numberOfMembers);
         textViewNumberOfMembers.setText(String.valueOf(numberOfMembers));
 
-        textViewTotalRent = findViewById(R.id.textView_baseExpense);
-        if(totalRent > 0) {
-            textViewTotalRent.setText(String.valueOf(totalRent));
-        } else{
-            textViewTotalRent.setText(String.valueOf(0));
+        textViewTotalExpense = findViewById(R.id.textView_baseExpense);
+        if (totalRent > 0) {
+            textViewTotalExpense.setText(String.valueOf(totalRent));
+        } else {
+            textViewTotalExpense.setText(String.valueOf(0));
         }
 
         cardViewMembers = findViewById(R.id.cardView_members);
@@ -158,7 +165,6 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     //Spinner Initialization and Action
     private void setSpinner() {
         int spinnerPosition = sharedPrefs.getSharedPrefDataInt(Keys.MONTH_SELECTED);
-        int currentYear = Calendar.getInstance().get(Calendar.YEAR);
         int currentMonth = Calendar.getInstance().get(Calendar.MONTH);
 
         spinner = findViewById(R.id.spinner_months);
@@ -170,7 +176,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         spinner.setAdapter(spinnerAdapter);
         if (spinnerPosition > -1) {
             spinner.setSelection(spinnerPosition);      //Set spinner position according the data from shared preference
-        } else{
+        } else {
             spinner.setSelection(currentMonth);
         }
         spinner.setOnItemSelectedListener(this);
@@ -178,46 +184,51 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        DateFormat dateFormat = new SimpleDateFormat("yyyy");
+        Date date = new Date();
+        String thisYear = dateFormat.format(date);
+
         sharedPrefs.setSharedPrefDataInt(Keys.MONTH_SELECTED, position);     //Store selected spinner position to shared preference
         String month = "";
         switch (position) {
             case 0:
-                month = "January";
+                month = "Jan, " + thisYear;
                 break;
             case 1:
-                month = "February";
+                month = "Feb, " + thisYear;
                 break;
             case 2:
-                month = "March";
+                month = "Mar, " + thisYear;
                 break;
             case 3:
-                month = "April";
+                month = "Apr, " + thisYear;
                 break;
             case 4:
-                month = "May";
+                month = "May, " + thisYear;
                 break;
             case 5:
-                month = "June";
+                month = "Jun, " + thisYear;
                 break;
             case 6:
-                month = "July";
+                month = "Jul, " + thisYear;
                 break;
             case 7:
-                month = "August";
+                month = "Aug, " + thisYear;
                 break;
             case 8:
-                month = "September";
+                month = "Sep, " + thisYear;
                 break;
             case 9:
-                month = "October";
+                month = "Oct, " + thisYear;
                 break;
             case 10:
-                month = "November";
+                month = "Nov, " + thisYear;
                 break;
             case 11:
-                month = "December";
+                month = "Dec, " + thisYear;
                 break;
         }
+        Log.e("This month", month);
         sharedPrefs.setSharedPrefDataString(Keys.MONTH, month);     //Store month according to the position of spinner to shared preference
     }
 

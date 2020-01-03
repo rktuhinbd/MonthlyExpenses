@@ -75,11 +75,13 @@
                 android:drawableEnd="@drawable/ic_monthly_calendar"
                 android:fontFamily="@font/arima_madurai_medium"
                 android:hint="@string/date"
+                android:focusable="false"
+                android:inputType="none"
                 android:importantForAutofill="no"
-                android:inputType="date"
                 android:paddingStart="@dimen/padding_narrow"
                 android:paddingEnd="@dimen/padding_narrow"
-                android:textSize="@dimen/text_small" />
+                android:textSize="@dimen/text_small"
+                tools:ignore="TextFields" />
 
             <EditText
                 android:id="@+id/editText_description"
@@ -101,7 +103,7 @@
                 android:textSize="@dimen/text_small" />
 
             <Spinner
-                android:id="@+id/spinner_rentCategories"
+                android:id="@+id/spinner_rentCategory"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginTop="@dimen/margin_normal"

@@ -16,7 +16,7 @@ import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
 import com.github.mikephil.charting.utils.ColorTemplate;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.rktuhinbd.smartmessmanager.Adapter.RentRecyclerAdapter;
+import com.rktuhinbd.smartmessmanager.Adapter.ExpenseRecyclerAdapter;
 import com.rktuhinbd.smartmessmanager.Database.DatabaseHelper;
 import com.rktuhinbd.smartmessmanager.Dialog.AddExpenseDialog;
 import com.rktuhinbd.smartmessmanager.Dialog.ExpenseInfoBottomSheet;
@@ -35,7 +35,7 @@ public class ExpenseActivity extends AppCompatActivity implements AddExpenseDial
     private FloatingActionButton fab;
 
     private RecyclerView recyclerView;
-    private RentRecyclerAdapter rentRecyclerAdapter;
+    private ExpenseRecyclerAdapter expenseRecyclerAdapter;
     private LinearLayoutManager layoutManager;
 
     private DatabaseHelper databaseHelper;
@@ -44,7 +44,7 @@ public class ExpenseActivity extends AppCompatActivity implements AddExpenseDial
     private List<PieEntry> pieEntries;
     private PieData pieData;
 
-    private String rentId, rentCategory, rentDescription, rentRentDate;
+    private String rentId, rentCategory, rentDescription, rentDate;
     private int rentAmount;
 
     @Override
@@ -70,7 +70,6 @@ public class ExpenseActivity extends AppCompatActivity implements AddExpenseDial
         });
     }
 
-
     @Override
     public void onBackPressed() {
         finish();
@@ -92,7 +91,7 @@ public class ExpenseActivity extends AppCompatActivity implements AddExpenseDial
         pieEntries = new ArrayList<>();
 
         sharedPrefs = new SharedPrefs(this);
-        rentRentDate = sharedPrefs.getSharedPrefDataString(Keys.MONTH);
+        rentDate = sharedPrefs.getSharedPrefDataString(Keys.MONTH);
 
         databaseHelper = new DatabaseHelper(this);
     }
@@ -104,17 +103,17 @@ public class ExpenseActivity extends AppCompatActivity implements AddExpenseDial
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setHasFixedSize(true);
 
-        rents = databaseHelper.getRents(rentRentDate);
+        rents = databaseHelper.getRents(rentDate);
         int totalRent = 0;
         for (int i = 0; i < rents.size(); i++) {
             totalRent += rents.get(i).getRentAmount();
         }
         sharedPrefs.setSharedPrefDataInt(Keys.TOTAL_RENT, totalRent);
 
-        rentRecyclerAdapter = new RentRecyclerAdapter(this, rents);
-        recyclerView.setAdapter(rentRecyclerAdapter);
+        expenseRecyclerAdapter = new ExpenseRecyclerAdapter(this, rents);
+        recyclerView.setAdapter(expenseRecyclerAdapter);
 
-        rentRecyclerAdapter.setOnItemClickListener(new RentRecyclerAdapter.OnItemClickListener() {
+        expenseRecyclerAdapter.setOnItemClickListener(new ExpenseRecyclerAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(int position) {
                 rentId = rents.get(position).getRentId();
@@ -158,14 +157,14 @@ public class ExpenseActivity extends AppCompatActivity implements AddExpenseDial
         bundle.putString(Keys.ID, rentId);
         bundle.putString(Keys.RENT_CATEGORY, rentCategory);
         bundle.putInt(Keys.RENT_AMOUNT, rentAmount);
-        bundle.putString(Keys.RENT_DATE, rentRentDate);
+        bundle.putString(Keys.RENT_DATE, rentDate);
         bundle.putString(Keys.RENT_DESCRIPTION, rentDescription);
         bottomSheet.setArguments(bundle);
         bottomSheet.show(getSupportFragmentManager(), "Rent info bottom sheet");
     }
 
     //Update Rent Pie Chart
-    private void updatePieChart(int amount, String rentCategory) {
+    public void updatePieChart(int amount, String rentCategory) {
         pieEntries.add(new PieEntry(amount, rentCategory));
 
         pieChart.animateX(1000);
@@ -183,9 +182,9 @@ public class ExpenseActivity extends AppCompatActivity implements AddExpenseDial
 
     //Store rent information to database if any value is saved in dialog
     @Override
-    public void stateChanged(boolean updateToken, int amount, String category, String description) {
+    public void stateChanged(boolean updateToken, int amount, String category, String description, String rentDate) {
         if (updateToken) {
-            databaseHelper.addRent(amount, category, description, rentRentDate);
+            databaseHelper.addRent(amount, category, description, rentDate);
             updatePieChart(amount, category);
             initiateRecyclerView();
         }
@@ -197,8 +196,8 @@ public class ExpenseActivity extends AppCompatActivity implements AddExpenseDial
         if (key.equals("updated")) {
             pieEntries.clear();
             rents.clear();
-            rents.addAll(databaseHelper.getRents(rentRentDate));
-            rentRecyclerAdapter.notifyDataSetChanged();
+            rents.addAll(databaseHelper.getRents(rentDate));
+            expenseRecyclerAdapter.notifyDataSetChanged();
 
             int totalRent = 0;
             for (int i = 0; i < rents.size(); i++) {
@@ -213,7 +212,7 @@ public class ExpenseActivity extends AppCompatActivity implements AddExpenseDial
             sharedPrefs.setSharedPrefDataInt(Keys.TOTAL_RENT, totalRent);
         } else {
             rents.remove(position);
-            rentRecyclerAdapter.notifyItemRemoved(position);
+            expenseRecyclerAdapter.notifyItemRemoved(position);
 
             pieEntries.clear();
             int totalRent = 0;

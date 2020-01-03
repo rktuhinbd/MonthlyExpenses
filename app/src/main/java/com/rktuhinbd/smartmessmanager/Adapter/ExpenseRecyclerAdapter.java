@@ -15,12 +15,12 @@ import com.rktuhinbd.smartmessmanager.R;
 
 import java.util.ArrayList;
 
-public class RentRecyclerAdapter extends RecyclerView.Adapter<RentRecyclerAdapter.ViewHolder> {
+public class ExpenseRecyclerAdapter extends RecyclerView.Adapter<ExpenseRecyclerAdapter.ViewHolder> {
 
     private Context context;
     private ArrayList<Rents> rents;
 
-    public RentRecyclerAdapter(Context context, ArrayList<Rents> rents) {
+    public ExpenseRecyclerAdapter(Context context, ArrayList<Rents> rents) {
         this.context = context;
         this.rents = rents;
     }
@@ -37,13 +37,13 @@ public class RentRecyclerAdapter extends RecyclerView.Adapter<RentRecyclerAdapte
 
     @NonNull
     @Override
-    public RentRecyclerAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public ExpenseRecyclerAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.items_rent, parent, false);
         return new ViewHolder(view, mListener);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull RentRecyclerAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ExpenseRecyclerAdapter.ViewHolder holder, int position) {
         holder.textViewRentCategory.setText(rents.get(position).getRentCategory());
         holder.textViewMonth.setText(rents.get(position).getRentMonth());
         holder.textViewRentAmount.setText(rents.get(position).getRentAmount() + "");

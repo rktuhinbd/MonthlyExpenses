@@ -1,13 +1,24 @@
 package com.rktuhinbd.smartmessmanager.Activity;
 
+import android.Manifest;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
 import com.google.android.material.snackbar.Snackbar;
 import com.rktuhinbd.smartmessmanager.Database.DatabaseHelper;
@@ -17,7 +28,7 @@ import com.rktuhinbd.smartmessmanager.R;
 import com.rktuhinbd.smartmessmanager.Utility.Keys;
 
 public class MemberInformationActivity extends AppCompatActivity implements UpdateMemberInfoDialogListener {
-
+    public static final int READ_EXTERNAL_STORAGE_PERMISSION_CODE = 1;
     private View view;
     private Button buttonRemoveMember, buttonUpdateInformation;
     private ImageView imageViewProfilePhoto;
@@ -38,9 +49,75 @@ public class MemberInformationActivity extends AppCompatActivity implements Upda
         getData();
         initiateProperties();
         setData();
-
+        getMemberPhoto();
         setRemoveUser();
         setUpdateMemberInfo();
+    }
+
+    private void getMemberPhoto() {
+        imageViewProfilePhoto.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
+                    Toast.makeText(MemberInformationActivity.this, "Yay! Kachumbor permission already granted.", Toast.LENGTH_SHORT).show();
+                } else {
+                    requestedPermissionGranted();
+                }
+            }
+        });
+    }
+
+    private void requestedPermissionGranted() {
+        if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.READ_EXTERNAL_STORAGE)) {
+            new AlertDialog.Builder(this)
+                    .setTitle("External storage read permission")
+                    .setMessage("External storage reading permission is needed to set profile photo of member")
+                    .setPositiveButton("Allow", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            ActivityCompat.requestPermissions(MemberInformationActivity.this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
+                                    READ_EXTERNAL_STORAGE_PERMISSION_CODE);
+                        }
+                    })
+                    .setNegativeButton("Deny", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.cancel();
+                        }
+                    }).create().show();
+        } else {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, READ_EXTERNAL_STORAGE_PERMISSION_CODE);
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        if (requestCode == READ_EXTERNAL_STORAGE_PERMISSION_CODE) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                Toast.makeText(getApplicationContext(), "Kachumbor eating is permitted", Toast.LENGTH_SHORT).show();
+            } else {
+                new AlertDialog.Builder(this)
+                        .setTitle("External storage read permission")
+                        .setMessage("You blocked permission request, if you are willing to grant storage reading permission you can grant it from the permission setting" +
+                                " of the application")
+                        .setPositiveButton("Take Me There", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                //Redirect the app setting for modification of the permissions
+                                Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+                                Uri uri = Uri.fromParts("package", getPackageName(), null);
+                                intent.setData(uri);
+                                startActivity(intent);
+                            }
+                        })
+                        .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.cancel();
+                            }
+                        }).create().show();
+            }
+        }
     }
 
     private void getData() {

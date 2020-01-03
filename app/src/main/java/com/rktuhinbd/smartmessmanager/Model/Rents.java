@@ -1,6 +1,7 @@
 package com.rktuhinbd.smartmessmanager.Model;
 
 public class Rents {
+
     private int rentAmount;
     private String rentId, rentCategory, rentDescription, rentMonth;
 

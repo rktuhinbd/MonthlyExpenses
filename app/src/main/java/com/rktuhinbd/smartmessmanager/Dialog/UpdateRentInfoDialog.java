@@ -1,5 +1,6 @@
 package com.rktuhinbd.smartmessmanager.Dialog;
 
+import android.app.DatePickerDialog;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.Log;
@@ -9,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Spinner;
@@ -21,22 +23,25 @@ import com.rktuhinbd.smartmessmanager.Listener.UpdateRentInfoDialogListener;
 import com.rktuhinbd.smartmessmanager.R;
 import com.rktuhinbd.smartmessmanager.Utility.Keys;
 
-public class UpdateRentInfoDialog extends DialogFragment implements AdapterView.OnItemSelectedListener {
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+
+public class UpdateRentInfoDialog extends DialogFragment implements AdapterView.OnItemSelectedListener, DatePickerDialog.OnDateSetListener {
+
+    private ArrayAdapter<CharSequence> spinnerAdapter;
+    private Spinner spinnerOccupation;
+    private EditText editTextRentAmount, editTextRentDate, editTextRentDescription;
+    private ImageButton imageButtonClose;
+    private Button buttonUpdate;
+
+    private String rentId, rentCategory, rentDate, rentDescription;
+    private int spinnerSelection, rentPosition, rentAmount;
 
     private UpdateRentInfoDialogListener dialogListener;
 
     public void setDialogListener(UpdateRentInfoDialogListener dialogListener) {
         this.dialogListener = dialogListener;
     }
-
-    private ArrayAdapter<CharSequence> spinnerAdapter;
-    private Spinner spinnerOccupation;
-    private EditText editTextRentAmount, editTextRentDescription, editTextRentDate;
-    private ImageButton imageButtonClose;
-    private Button buttonUpdate;
-
-    private String rentId, rentCategory, rentDate, rentDescription;
-    private int spinnerSelection, rentPosition, rentAmount;
 
     @Nullable
     @Override
@@ -61,6 +66,13 @@ public class UpdateRentInfoDialog extends DialogFragment implements AdapterView.
 
         imageButtonClose = view.findViewById(R.id.imageButton_close);
         buttonUpdate = view.findViewById(R.id.button_updateRentInfo);
+
+        editTextRentDate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showDatePicker();
+            }
+        });
     }
 
     //Get data from bundle
@@ -118,7 +130,7 @@ public class UpdateRentInfoDialog extends DialogFragment implements AdapterView.
 
     //Spinner function to get Occupation
     private void setSpinner(View view) {
-        spinnerOccupation = view.findViewById(R.id.spinner_rentCategories);
+        spinnerOccupation = view.findViewById(R.id.spinner_rentCategory);
         // Create an ArrayAdapter using the string array and a custom spinner layout
         spinnerAdapter = ArrayAdapter.createFromResource(view.getContext(), R.array.rentCategories, R.layout.spinner_background_martinique);
         // Specify the layout to use when the list of choices appears
@@ -198,6 +210,30 @@ public class UpdateRentInfoDialog extends DialogFragment implements AdapterView.
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
 
+    }
+
+    //Show calendar
+    private void showDatePicker() {
+        Calendar calendar = Calendar.getInstance();
+        int year = calendar.get(Calendar.YEAR);
+        int month = calendar.get(Calendar.MONTH);
+        int day = calendar.get(Calendar.DAY_OF_MONTH);
+
+        DatePickerDialog datePickerDialog = new DatePickerDialog(getActivity(), this, year, month, day);
+        datePickerDialog.getDatePicker().setMinDate(year);
+        datePickerDialog.show();
+    }
+
+    //Set date according to the picked date from calendar
+    @Override
+    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.YEAR, year);
+        calendar.set(Calendar.MONTH, month);
+        calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+        rentDate = new SimpleDateFormat("MMM, yyyy").format(calendar.getTime());
+
+        editTextRentDate.setText(rentDate);
     }
 
 }
