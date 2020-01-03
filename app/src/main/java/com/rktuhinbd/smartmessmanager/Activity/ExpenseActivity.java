@@ -27,7 +27,6 @@ import com.rktuhinbd.smartmessmanager.Utility.Keys;
 import com.rktuhinbd.smartmessmanager.Utility.SharedPrefs;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 
 public class ExpenseActivity extends AppCompatActivity implements AddExpenseDialogListener, ExpenseInfoBottomSheet.BottomSheetListener {
@@ -45,7 +44,7 @@ public class ExpenseActivity extends AppCompatActivity implements AddExpenseDial
     private List<PieEntry> pieEntries;
     private PieData pieData;
 
-    private String rentId, rentCategory, rentDescription, rentRentDate;
+    private String rentId, rentCategory, rentDescription, rentDate;
     private int rentAmount;
 
     @Override
@@ -92,7 +91,7 @@ public class ExpenseActivity extends AppCompatActivity implements AddExpenseDial
         pieEntries = new ArrayList<>();
 
         sharedPrefs = new SharedPrefs(this);
-        rentRentDate = sharedPrefs.getSharedPrefDataString(Keys.MONTH);
+        rentDate = sharedPrefs.getSharedPrefDataString(Keys.MONTH);
 
         databaseHelper = new DatabaseHelper(this);
     }
@@ -104,7 +103,7 @@ public class ExpenseActivity extends AppCompatActivity implements AddExpenseDial
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setHasFixedSize(true);
 
-        rents = databaseHelper.getRents(rentRentDate);
+        rents = databaseHelper.getRents(rentDate);
         int totalRent = 0;
         for (int i = 0; i < rents.size(); i++) {
             totalRent += rents.get(i).getRentAmount();
@@ -158,14 +157,14 @@ public class ExpenseActivity extends AppCompatActivity implements AddExpenseDial
         bundle.putString(Keys.ID, rentId);
         bundle.putString(Keys.RENT_CATEGORY, rentCategory);
         bundle.putInt(Keys.RENT_AMOUNT, rentAmount);
-        bundle.putString(Keys.RENT_DATE, rentRentDate);
+        bundle.putString(Keys.RENT_DATE, rentDate);
         bundle.putString(Keys.RENT_DESCRIPTION, rentDescription);
         bottomSheet.setArguments(bundle);
         bottomSheet.show(getSupportFragmentManager(), "Rent info bottom sheet");
     }
 
     //Update Rent Pie Chart
-    private void updatePieChart(int amount, String rentCategory) {
+    public void updatePieChart(int amount, String rentCategory) {
         pieEntries.add(new PieEntry(amount, rentCategory));
 
         pieChart.animateX(1000);
@@ -197,7 +196,7 @@ public class ExpenseActivity extends AppCompatActivity implements AddExpenseDial
         if (key.equals("updated")) {
             pieEntries.clear();
             rents.clear();
-            rents.addAll(databaseHelper.getRents(rentRentDate));
+            rents.addAll(databaseHelper.getRents(rentDate));
             expenseRecyclerAdapter.notifyDataSetChanged();
 
             int totalRent = 0;

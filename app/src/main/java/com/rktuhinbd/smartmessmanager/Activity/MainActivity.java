@@ -16,7 +16,10 @@ import com.rktuhinbd.smartmessmanager.R;
 import com.rktuhinbd.smartmessmanager.Utility.Keys;
 import com.rktuhinbd.smartmessmanager.Utility.SharedPrefs;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 
 public class MainActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
@@ -64,7 +67,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         if (sharedPrefs.getSharedPrefDataInt(Keys.MEMBERS) > 0) {
             numberOfMembers = sharedPrefs.getSharedPrefDataInt(Keys.MEMBERS);
         }
-        if(sharedPrefs.getSharedPrefDataInt(Keys.TOTAL_RENT) > 0){
+        if (sharedPrefs.getSharedPrefDataInt(Keys.TOTAL_RENT) > 0) {
             totalRent = sharedPrefs.getSharedPrefDataInt(Keys.TOTAL_RENT);
         }
 
@@ -181,46 +184,51 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        DateFormat dateFormat = new SimpleDateFormat("yyyy");
+        Date date = new Date();
+        String thisYear = dateFormat.format(date);
+
         sharedPrefs.setSharedPrefDataInt(Keys.MONTH_SELECTED, position);     //Store selected spinner position to shared preference
         String month = "";
         switch (position) {
             case 0:
-                month = "January";
+                month = "Jan, " + thisYear;
                 break;
             case 1:
-                month = "February";
+                month = "Feb, " + thisYear;
                 break;
             case 2:
-                month = "March";
+                month = "Mar, " + thisYear;
                 break;
             case 3:
-                month = "April";
+                month = "Apr, " + thisYear;
                 break;
             case 4:
-                month = "May";
+                month = "May, " + thisYear;
                 break;
             case 5:
-                month = "June";
+                month = "Jun, " + thisYear;
                 break;
             case 6:
-                month = "July";
+                month = "Jul, " + thisYear;
                 break;
             case 7:
-                month = "August";
+                month = "Aug, " + thisYear;
                 break;
             case 8:
-                month = "September";
+                month = "Sep, " + thisYear;
                 break;
             case 9:
-                month = "October";
+                month = "Oct, " + thisYear;
                 break;
             case 10:
-                month = "November";
+                month = "Nov, " + thisYear;
                 break;
             case 11:
-                month = "December";
+                month = "Dec, " + thisYear;
                 break;
         }
+        Log.e("This month", month);
         sharedPrefs.setSharedPrefDataString(Keys.MONTH, month);     //Store month according to the position of spinner to shared preference
     }
 

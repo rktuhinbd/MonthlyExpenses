@@ -75,11 +75,13 @@
                 android:drawableEnd="@drawable/ic_monthly_calendar"
                 android:fontFamily="@font/arima_madurai_medium"
                 android:hint="@string/date"
+                android:focusable="false"
+                android:inputType="none"
                 android:importantForAutofill="no"
-                android:inputType="date"
                 android:paddingStart="@dimen/padding_narrow"
                 android:paddingEnd="@dimen/padding_narrow"
-                android:textSize="@dimen/text_small" />
+                android:textSize="@dimen/text_small"
+                tools:ignore="TextFields" />
 
             <EditText
                 android:id="@+id/editText_description"

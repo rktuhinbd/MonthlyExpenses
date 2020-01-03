@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.rktuhinbd.smartmessmanager.Model.Members;
@@ -34,7 +35,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String RENT_AMOUNT = "rent_amount";
     private static final String RENT_CATEGORY = "rent_category";
     private static final String RENT_DESCRIPTION = "rent_description";
-    private static final String RENT_MONTH = "rent_month";
+    private static final String RENT_DATE = "rent_date";
 
 
     private static final String CREATE_MESS_TABLE = "CREATE TABLE " + MESS_MEMBER_TABLE + "("
@@ -51,7 +52,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String CREATE_RENT_TABLE = "CREATE TABLE " + RENT_TABLE + "("
             + RENT_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
             + RENT_AMOUNT + " INTEGER NOT NULL, "
-            + RENT_MONTH + " VARCHAR(50), "
+            + RENT_DATE + " VARCHAR(100), "
             + RENT_CATEGORY + " VARCHAR(100) , "
             + RENT_DESCRIPTION + " VARCHAR(250));";
 
@@ -66,7 +67,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             db.execSQL(CREATE_MESS_TABLE);
             db.execSQL(CREATE_RENT_TABLE);
         } catch (Exception e) {
-            Toast.makeText(context, "Exception: " + e, Toast.LENGTH_LONG).show();
+            Toast.makeText(context, "Database Exception: " + e, Toast.LENGTH_LONG).show();
         }
     }
 
@@ -155,7 +156,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     //Get single member information from database
-    public ArrayList<Members> getMemberInformation(int memberId) {
+    /*public ArrayList<Members> getMemberInformation(int memberId) {
         SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
         final Cursor cursor;
         cursor = sqLiteDatabase.rawQuery("Select * from " + MESS_MEMBER_TABLE + " WHERE " + MEMBER_ID + " = '" + memberId + "' ORDER BY " + MEMBER_ID
@@ -180,7 +181,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             }
         }
         return members;
-    }
+    }*/
 
     //Add rent to database
     public long addRent(int rentAmount, String rentCategory, String rentDescription, String rentMonth) {
@@ -189,7 +190,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         contentValues.put(RENT_AMOUNT, rentAmount);
         contentValues.put(RENT_CATEGORY, rentCategory);
         contentValues.put(RENT_DESCRIPTION, rentDescription);
-        contentValues.put(RENT_MONTH, rentMonth);
+        contentValues.put(RENT_DATE, rentMonth);
 
         return sqLiteDatabase.insert(RENT_TABLE, null, contentValues);
     }
@@ -198,7 +199,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public ArrayList<Rents> getRents(String month) {
         SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
         final Cursor cursor;
-        cursor = sqLiteDatabase.rawQuery("Select * from " + RENT_TABLE + " WHERE " + RENT_MONTH + " = '" + month + "'", null);
+        cursor = sqLiteDatabase.rawQuery("Select * from " + RENT_TABLE + " WHERE " + RENT_DATE + " = '" + month + "'", null);
 
         ArrayList<Rents> rents = new ArrayList<>();
 
@@ -229,7 +230,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                     ContentValues contentValues = new ContentValues();
                     contentValues.put(RENT_CATEGORY, rentCategory);
                     contentValues.put(RENT_AMOUNT, rentAmount);
-                    contentValues.put(RENT_MONTH, rentDate);
+                    contentValues.put(RENT_DATE, rentDate);
                     contentValues.put(RENT_DESCRIPTION, rentDescription);
                     db.update(RENT_TABLE, contentValues, RENT_ID + "=?", new String[]{rentId});
                 } while (c.moveToNext());

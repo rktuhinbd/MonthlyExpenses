@@ -1,5 +1,6 @@
 package com.rktuhinbd.smartmessmanager.Dialog;
 
+import android.app.DatePickerDialog;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -8,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Spinner;
@@ -19,7 +21,10 @@ import androidx.fragment.app.DialogFragment;
 import com.rktuhinbd.smartmessmanager.Listener.AddExpenseDialogListener;
 import com.rktuhinbd.smartmessmanager.R;
 
-public class AddExpenseDialog extends DialogFragment implements AdapterView.OnItemSelectedListener {
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+
+public class AddExpenseDialog extends DialogFragment implements AdapterView.OnItemSelectedListener, DatePickerDialog.OnDateSetListener {
 
     private Spinner spinnerRentCategory;
     private EditText editTextAmount, editTextDate, editTextDescription;
@@ -60,7 +65,7 @@ public class AddExpenseDialog extends DialogFragment implements AdapterView.OnIt
         editTextDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                showDatePicker();
             }
         });
     }
@@ -155,5 +160,29 @@ public class AddExpenseDialog extends DialogFragment implements AdapterView.OnIt
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
 
+    }
+
+    //Show calendar
+    private void showDatePicker() {
+        Calendar calendar = Calendar.getInstance();
+        int year = calendar.get(Calendar.YEAR);
+        int month = calendar.get(Calendar.MONTH);
+        int day = calendar.get(Calendar.DAY_OF_MONTH);
+
+        DatePickerDialog datePickerDialog = new DatePickerDialog(getActivity(), this, year, month, day);
+        datePickerDialog.getDatePicker().setMinDate(year);
+        datePickerDialog.show();
+    }
+
+    //Set date according to the picked date from calendar
+    @Override
+    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.YEAR, year);
+        calendar.set(Calendar.MONTH, month);
+        calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+        rentDate = new SimpleDateFormat("MMM, yyyy").format(calendar.getTime());
+
+        editTextDate.setText(rentDate);
     }
 }
