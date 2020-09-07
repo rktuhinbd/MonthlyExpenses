@@ -1,0 +1,44 @@
+<resources>
+    <string name="mess_manager">স্মার্ট মেস ম্যানেজার</string>
+    <string name="members">সদস্য</string>
+    <string name="_0">0</string>
+    <string name="_house_rent">0</string>
+    <string name="house_rent">ঘর ভাড়া</string>
+    <string name="taka_sign">৳</string>
+    <string name="meals">খাবার</string>
+    <string name="expenses">খরচ</string>
+    <string name="meal_cost">খাবার খরচ</string>
+    <string name="balance_sheet">জমা খরচের বিবরণ</string>
+    <string name="title_activity_members">সদস্যদের ক্রিয়াকলাপ</string>
+    <string name="member_photo">সদস্যের ছবি</string>
+    <string name="name">নাম</string>
+    <string name="phone">ফোন</string>
+    <string name="email">ইমেইল</string>
+    <string name="home_address">বাসার ঠিকানা</string>
+    <string name="add_member">সদস্য যোগ করুন</string>
+    <string name="close">বন্ধ করুন</string>
+    <string name="national_id">জাতীয় পরিচয়পত্র</string>
+    <string name="organisation">সংস্থা</string>
+    <string name="occupation">পেশা</string>
+    <string name="member_information">সদস্য তথ্য</string>
+    <string name="remove_member">সদস্যকে সরান</string>
+    <string name="update">আপডেট</string>
+    <string name="add_expense">ব্যয় যোগ করুন</string>
+    <string name="update_expense">ব্যয় আপডেট</string>
+    <string name="save">সংরক্ষণ</string>
+    <string name="amount">পরিমাণ</string>
+    <string name="description">বিবরণ</string>
+    <string name="rent_category">ভাড়া ক্যাটাগরি</string>
+    <string name="calendar">ক্যালেন্ডার</string>
+    <string name="month">মাস</string>
+    <string name="date">তারিখ</string>
+    <string name="remove">সরান</string>
+    <string name="expense_info">ব্যয় সম্পর্কিত তথ্য</string>
+    <string name="daily_expense">দৈনিক ব্যয়</string>
+    <string name="name_required_">নাম প্রয়োজন!</string>
+    <string name="name_length_error_">নামটি ৩ টি অক্ষরের চেয়ে কম হতে পারে না!</string>
+    <string name="special_characters_in_name">নামটিতে বিশেষ অক্ষর থাকতে পারে না!</string>
+    <string name="phone_number_required_">ফোন নম্বর প্রয়োজন!</string>
+    <string name="phone_length_error_">ফোন নম্বরের দৈর্ঘ্য ১১ হতে হবে!</string>
+
+</resources>

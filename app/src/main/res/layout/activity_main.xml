@@ -278,7 +278,7 @@
                         android:layout_width="64dp"
                         android:layout_height="64dp"
                         android:layout_gravity="center_horizontal"
-                        android:contentDescription="@string/meal_rate"
+                        android:contentDescription="@string/meal_cost"
                         android:src="@drawable/ic_meal_rate_calculator" />
 
                     <TextView
@@ -286,7 +286,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:fontFamily="@font/arima_madurai_bold"
-                        android:text="@string/meal_rate"
+                        android:text="@string/meal_cost"
                         android:textColor="@color/colorWhite"
                         android:textSize="@dimen/text_extra_large" />
 
