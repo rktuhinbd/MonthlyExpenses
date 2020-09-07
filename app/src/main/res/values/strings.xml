@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Smart Mess Manager</string>
+    <string name="app_name" translatable="false">Smart Mess Manager</string>
     <string name="mess_manager">Smart Mess Manager</string>
     <string name="members">Members</string>
     <string name="_0">0</string>
@@ -8,9 +8,9 @@
     <string name="taka_sign">৳</string>
     <string name="meals">Meals</string>
     <string name="expenses">Expenses</string>
-    <string name="meal_rate">Meal Rate</string>
+    <string name="meal_cost">Meal Cost</string>
     <string name="balance_sheet">Balance Sheet</string>
-    <string name="title_activity_members">MembersActivity</string>
+    <string name="title_activity_members">Members Activity</string>
     <string name="member_photo">Member Photo</string>
     <string name="name">Name</string>
     <string name="phone">Phone</string>
@@ -36,6 +36,11 @@
     <string name="remove">Remove</string>
     <string name="expense_info">Expense Information</string>
     <string name="daily_expense">Daily Expense</string>
+    <string name="name_required_">Name is required!</string>
+    <string name="name_length_error_">Name can\'t be less than 3 characters!</string>
+    <string name="special_characters_in_name">Name can\'t contain special characters!</string>
+    <string name="phone_number_required_">Phone number is required!</string>
+    <string name="phone_length_error_">Phone number length should be 11!</string>
 
     <string-array name="months">
         <item>January</item>
@@ -71,4 +76,5 @@
         <item>Miscellaneous</item>
         <item>Other</item>
     </string-array>
+
 </resources>
